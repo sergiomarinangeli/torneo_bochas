@@ -95,6 +95,38 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
 
+        <!-- Widget del Clima -->
+        <section id="clima" class="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-3xl shadow-xl p-6 md:p-8 text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+                <i data-lucide="cloud-sun" class="w-64 h-64"></i>
+            </div>
+            
+            <div class="relative z-10 flex flex-col lg:flex-row gap-8 items-center justify-between">
+                <!-- Clima Actual -->
+                <div class="text-center lg:text-left flex flex-col md:flex-row items-center gap-6">
+                    <div id="current-weather-icon" class="bg-white/20 p-4 rounded-full backdrop-blur-sm shadow-inner">
+                        <i data-lucide="loader-2" class="h-12 w-12 animate-spin"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold opacity-90">Santa Rosa, La Pampa</h3>
+                        <div class="flex items-baseline gap-2 justify-center lg:justify-start mt-1">
+                            <span id="current-temp" class="text-5xl md:text-6xl font-extrabold tracking-tighter">--</span>
+                            <span class="text-3xl font-bold">°C</span>
+                        </div>
+                        <p id="current-desc" class="text-base font-medium mt-1">Obteniendo datos del clima...</p>
+                        <p class="text-[10px] uppercase tracking-wider opacity-75 mt-2 font-semibold flex items-center justify-center lg:justify-start gap-1">
+                            <i data-lucide="info" class="h-3 w-3"></i> Fuente: Servicio Meteorológico Nacional
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pronóstico (5 días) -->
+                <div class="flex gap-3 overflow-x-auto w-full lg:w-auto pb-4 lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']" id="forecast-container">
+                    <!-- Cards de pronóstico (Inyectadas por JS) -->
+                </div>
+            </div>
+        </section>
+
         <!-- Bienvenida -->
         <section class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border-t-8 border-cyan-400 relative">
             <div class="absolute -top-10 right-10 bg-cyan-400 text-purple-900 p-4 rounded-full shadow-lg">
@@ -867,6 +899,92 @@
                 agentAvatar.classList.remove('hidden');
             }
         });
+
+        // Widget del Clima (Datos en tiempo real para Santa Rosa)
+        async function loadWeather() {
+            // Coordenadas exactas de Santa Rosa, La Pampa
+            const lat = -36.6167;
+            const lon = -64.2833;
+            // Consulta de pronóstico para 5 días
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=America%2FArgentina%2FBuenos_Aires&forecast_days=5`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                // Mapeo de códigos a íconos y texto en español
+                const weatherMap = {
+                    0: { icon: 'sun', text: 'Despejado' },
+                    1: { icon: 'sun', text: 'Mayormente despejado' },
+                    2: { icon: 'cloud-sun', text: 'Parcialmente nublado' },
+                    3: { icon: 'cloud', text: 'Nublado' },
+                    45: { icon: 'cloud-fog', text: 'Niebla' },
+                    48: { icon: 'cloud-fog', text: 'Niebla' },
+                    51: { icon: 'cloud-drizzle', text: 'Llovizna leve' },
+                    53: { icon: 'cloud-drizzle', text: 'Llovizna' },
+                    55: { icon: 'cloud-drizzle', text: 'Llovizna densa' },
+                    61: { icon: 'cloud-rain', text: 'Lluvia leve' },
+                    63: { icon: 'cloud-rain', text: 'Lluvia moderada' },
+                    65: { icon: 'cloud-rain', text: 'Lluvia fuerte' },
+                    71: { icon: 'snowflake', text: 'Nieve leve' },
+                    73: { icon: 'snowflake', text: 'Nieve moderada' },
+                    75: { icon: 'snowflake', text: 'Nieve fuerte' },
+                    95: { icon: 'cloud-lightning', text: 'Tormenta' },
+                    99: { icon: 'cloud-lightning', text: 'Tormenta fuerte' }
+                };
+
+                const getW = (code) => weatherMap[code] || { icon: 'cloud', text: 'Nublado' };
+
+                // 1. Actualizar clima actual
+                const currentW = getW(data.current.weather_code);
+                document.getElementById('current-temp').innerText = Math.round(data.current.temperature_2m);
+                document.getElementById('current-desc').innerText = currentW.text;
+                document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="${currentW.icon}" class="h-12 w-12 text-yellow-300 drop-shadow-md"></i>`;
+
+                // 2. Actualizar pronóstico de 5 días
+                const forecastContainer = document.getElementById('forecast-container');
+                let forecastHTML = '';
+                
+                const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+                for(let i=0; i<data.daily.time.length; i++) {
+                    // Evitar problemas de zona horaria
+                    const dateStr = data.daily.time[i] + 'T00:00:00'; 
+                    const dateObj = new Date(dateStr);
+                    const dayName = days[dateObj.getDay()];
+                    const dayDate = dateObj.getDate();
+                    
+                    const w = getW(data.daily.weather_code[i]);
+                    const max = Math.round(data.daily.temperature_2m_max[i]);
+                    const min = Math.round(data.daily.temperature_2m_min[i]);
+
+                    forecastHTML += `
+                        <div class="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-2xl p-4 min-w-[95px] border border-white/20 shadow-sm transition-transform hover:-translate-y-1">
+                            <span class="text-sm font-bold uppercase tracking-wide">${dayName} ${dayDate}</span>
+                            <i data-lucide="${w.icon}" class="h-8 w-8 my-3 ${w.icon.includes('sun') ? 'text-yellow-300' : 'text-white'}"></i>
+                            <div class="flex gap-3 text-sm">
+                                <span class="font-bold" title="Máxima">${max}°</span>
+                                <span class="opacity-70" title="Mínima">${min}°</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                forecastContainer.innerHTML = forecastHTML;
+                
+                // Recargar los íconos de Lucide que acabamos de insertar
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error al cargar clima:', error);
+                document.getElementById('current-desc').innerText = "Pronóstico no disponible";
+                document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="cloud-off" class="h-12 w-12 opacity-50"></i>`;
+                lucide.createIcons();
+            }
+        }
+
+        // Ejecutar carga del clima al abrir la página
+        loadWeather();
+
     </script>
 </body>
 </html>
