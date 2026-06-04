@@ -32,13 +32,14 @@
                 </div>
                 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="#inicio" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
-                    <a href="#sedes" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Sedes</a>
-                    <a href="#cronograma" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Cronograma</a>
-                    <a href="#comite" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Comité</a>
-                    <a href="#conducta" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Reglamento</a>
-                    <a href="#evaluacion" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Evaluación</a>
+                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                    <a href="#inicio" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
+                    <a href="#sedes" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Sedes</a>
+                    <a href="#cronograma" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Cronograma</a>
+                    <a href="#comite" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Comité</a>
+                    <a href="#conducta" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Reglamento</a>
+                    <a href="#farmacias" class="text-cyan-300 hover:bg-purple-800 hover:text-white px-2 py-2 rounded-md text-sm font-bold transition-colors flex items-center gap-1"><i data-lucide="cross" class="h-4 w-4"></i> Farmacias</a>
+                    <a href="#evaluacion" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Evaluación</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -58,6 +59,7 @@
                 <a href="#cronograma" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Cronograma</a>
                 <a href="#comite" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Comité Organizador</a>
                 <a href="#conducta" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Código de Conducta</a>
+                <a href="#farmacias" class="mobile-link text-cyan-300 hover:bg-purple-700 flex items-center gap-2 px-3 py-4 rounded-md text-base font-bold border-b border-purple-700/50"><i data-lucide="cross" class="h-5 w-5"></i> Farmacias de Turno</a>
                 <a href="#evaluacion" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium">Evaluaciones</a>
             </div>
         </div>
@@ -548,6 +550,42 @@
             </div>
         </section>
 
+        <!-- Sección de Farmacias de Turno -->
+        <section id="farmacias" class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border-t-8 border-purple-500 relative overflow-hidden">
+            <div class="absolute -top-10 right-10 bg-purple-500 text-white p-4 rounded-full shadow-lg">
+                <i data-lucide="cross" class="h-10 w-10"></i>
+            </div>
+            
+            <div class="max-w-3xl mx-auto text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-purple-900 mb-4">Farmacias de Turno</h2>
+                <p class="text-slate-600">Servicio de consulta para Santa Rosa, La Pampa.</p>
+                <div class="mt-4 inline-flex items-center gap-2 bg-purple-50 text-purple-800 px-4 py-2 rounded-lg text-sm font-medium border border-purple-100">
+                    <i data-lucide="info" class="h-4 w-4 shrink-0"></i>
+                    Los turnos rigen de 08:30 hs a 08:30 hs del día siguiente.
+                </div>
+            </div>
+
+            <!-- Buscador por Fecha -->
+            <div class="max-w-md mx-auto bg-slate-50 p-6 rounded-2xl shadow-inner border border-slate-200 mb-10">
+                <label for="fecha-farmacia" class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider flex items-center gap-2">
+                    <i data-lucide="calendar" class="h-4 w-4 text-cyan-500"></i> Selecciona una fecha (Junio 2026):
+                </label>
+                <input 
+                    type="date" 
+                    id="fecha-farmacia" 
+                    min="2026-06-01" 
+                    max="2026-06-30" 
+                    value="2026-06-05" 
+                    class="w-full rounded-xl border border-slate-300 p-4 text-lg font-medium text-slate-800 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500 outline-none transition-all shadow-sm"
+                />
+            </div>
+
+            <!-- Resultados -->
+            <div id="contenedor-farmacias" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Las tarjetas se generan aquí vía JS -->
+            </div>
+        </section>
+
         <!-- Evaluaciones -->
         <section id="evaluacion" class="bg-slate-100 rounded-3xl p-6 md:p-12 border-2 border-slate-200">
             <div class="flex items-center gap-4 mb-8 justify-center">
@@ -984,6 +1022,176 @@
 
         // Ejecutar carga del clima al abrir la página
         loadWeather();
+
+        // ----------------------------------------------------------------------
+        // SISTEMA DE FARMACIAS DE TURNO (JUNIO 2026)
+        // ----------------------------------------------------------------------
+        const calendarioFarmacias = {
+            "2026-06-01":"I", "2026-06-02":"J", "2026-06-03":"K", "2026-06-04":"L", "2026-06-05":"A",
+            "2026-06-06":"B", "2026-06-07":"C", "2026-06-08":"D", "2026-06-09":"E", "2026-06-10":"F",
+            "2026-06-11":"G", "2026-06-12":"H", "2026-06-13":"I", "2026-06-14":"J", "2026-06-15":"K",
+            "2026-06-16":"L", "2026-06-17":"A", "2026-06-18":"B", "2026-06-19":"C", "2026-06-20":"D",
+            "2026-06-21":"E", "2026-06-22":"F", "2026-06-23":"G", "2026-06-24":"H", "2026-06-25":"I",
+            "2026-06-26":"J", "2026-06-27":"K", "2026-06-28":"L", "2026-06-29":"A", "2026-06-30":"B"
+        };
+
+        const dbFarmacias = {
+            "A":[
+                {"nombre":"Ameghino","direccion":"Ameghino 587","telefono":"414441","whatsapp":"2954815352"},
+                {"nombre":"Bagliani","direccion":"Mitre 134","telefono":"417500","whatsapp":"2954599667"},
+                {"nombre":"Del Sol","direccion":"Urquiza 490","telefono":"418006","whatsapp":"2954313253"},
+                {"nombre":"Ponce","direccion":"Av. Edison 1248","telefono":"387778"},
+                {"nombre":"Sadowski","direccion":"Av. Uruguay 681","telefono":"418155","whatsapp":"2954318487"}
+            ],
+            "B":[
+                {"nombre":"Farmacity 281","direccion":"Avellaneda 236"},
+                {"nombre":"Ferratto","direccion":"Raúl B. Díaz 1795","telefono":"700999"},
+                {"nombre":"Integral","direccion":"Juan Schmidt 1058","telefono":"410809"},
+                {"nombre":"San Andrés SRL","direccion":"Autonomista 846","telefono":"411333"},
+                {"nombre":"Santa Lucía","direccion":"Av. Luro 565","telefono":"416661"}
+            ],
+            "C":[
+                {"nombre":"Belgrano","direccion":"Av. Belgrano 442","telefono":"416239","whatsapp":"2954851585"},
+                {"nombre":"Butaló","direccion":"Unanue 366/372","telefono":"410555","whatsapp":"2954672444"},
+                {"nombre":"Pampa SRL","direccion":"España 490","telefono":"411000","whatsapp":"2954592296"},
+                {"nombre":"Polyfarma Norte","direccion":"1° de Mayo y R.B. Díaz","telefono":"417400"},
+                {"nombre":"Quintana","direccion":"Gral. Pico 258","telefono":"413757","whatsapp":"2954653445"}
+            ],
+            "D":[
+                {"nombre":"Calamari","direccion":"Av. Luro 56","telefono":"424382"},
+                {"nombre":"Don Bosco","direccion":"Cnel. Gil 15","telefono":"423101"},
+                {"nombre":"Follmer","direccion":"Arg. Valle 672","telefono":"417617"},
+                {"nombre":"Gaman","direccion":"Emilio Zola 382","telefono":"418905"},
+                {"nombre":"Vitalfarma","direccion":"Ameghino 713","telefono":"410500"}
+            ],
+            "E":[
+                {"nombre":"Costabel","direccion":"Av. Uruguay 350","telefono":"417333"},
+                {"nombre":"Demaria","direccion":"Belgrano Norte 672","telefono":"410900"},
+                {"nombre":"Palasciano","direccion":"Irigoyen y Moreno","telefono":"416400"},
+                {"nombre":"Pío XII","direccion":"Ameghino y Pío XII","telefono":"427400"},
+                {"nombre":"Weigel","direccion":"A. Cavero 306","telefono":"415651"}
+            ],
+            "F":[
+                {"nombre":"España SCS","direccion":"Gil y España","telefono":"425169"},
+                {"nombre":"Libertad SRL","direccion":"Unanue 514","telefono":"431903"},
+                {"nombre":"Lutisky","direccion":"Luro e Irigoyen","telefono":"410381"},
+                {"nombre":"Santa Cecilia","direccion":"Spinetto 897","telefono":"414444"},
+                {"nombre":"Vial","direccion":"Gentili 846","telefono":"413300"}
+            ],
+            "G":[
+                {"nombre":"Austral","direccion":"Ameghino y Valerga","telefono":"415100"},
+                {"nombre":"Cazaux","direccion":"Garibaldi 498","telefono":"415600"},
+                {"nombre":"Pasteur","direccion":"Escalante y Pico","telefono":"410110"},
+                {"nombre":"Sanitalix","direccion":"Av. Perón 2715"},
+                {"nombre":"Wall Mapu","direccion":"R. Sáenz Peña 915","telefono":"834344"}
+            ],
+            "H":[
+                {"nombre":"Americana","direccion":"L. de la Torre 418","telefono":"410017"},
+                {"nombre":"El Mate","direccion":"México 968","telefono":"418081"},
+                {"nombre":"Gugliara","direccion":"San Luis 397","telefono":"438643"},
+                {"nombre":"La Botica","direccion":"San Martín Oeste 592","telefono":"416146"},
+                {"nombre":"Villa Alonso","direccion":"Belgrano Norte 317","telefono":"417001"}
+            ],
+            "I":[
+                {"nombre":"Alsina","direccion":"Alsina 351","telefono":"414546"},
+                {"nombre":"Davit","direccion":"Telén y San Luis","telefono":"418833"},
+                {"nombre":"Farmatop","direccion":"A. Palacios 1213","telefono":"414141"},
+                {"nombre":"Norte SCS","direccion":"Escalante 52","telefono":"386860"},
+                {"nombre":"Vázquez","direccion":"Schmidt 1501","telefono":"417138"}
+            ],
+            "J":[
+                {"nombre":"Brett","direccion":"Liberato Rosas 1593","telefono":"830300"},
+                {"nombre":"La Clínica","direccion":"San Martín 437","telefono":"438734"},
+                {"nombre":"Los Álamos","direccion":"Raúl B. Díaz 1367","telefono":"418884"},
+                {"nombre":"Moderna","direccion":"Procrear L6","telefono":"246252"},
+                {"nombre":"Río","direccion":"Av. Luro 2446","telefono":"455729"}
+            ],
+            "K":[
+                {"nombre":"Changomás Tienda 1100","direccion":"Av. Perón 2325","telefono":"425470"},
+                {"nombre":"Faerac","direccion":"R.S. Peña 881","telefono":"418800"},
+                {"nombre":"Farmacity 303","direccion":"San Martín 317"}
+            ],
+            "L":[
+                {"nombre":"América","direccion":"Autonomista 1339","telefono":"415060"},
+                {"nombre":"Changomás","direccion":"Santiago Marzo 1550","telefono":"423339"},
+                {"nombre":"Del Museo","direccion":"Pellegrini 174","telefono":"413785"},
+                {"nombre":"Leal","direccion":"Rivadavia 101","telefono":"420320"},
+                {"nombre":"Pasco","direccion":"Yrigoyen 123","telefono":"412910"}
+            ]
+        };
+
+        function mostrarFarmacias() {
+            const fechaInput = document.getElementById('fecha-farmacia').value;
+            const contenedor = document.getElementById('contenedor-farmacias');
+            
+            // Limpiar contenedor
+            contenedor.innerHTML = '';
+            
+            const grupo = calendarioFarmacias[fechaInput];
+            
+            if (!grupo) {
+                contenedor.innerHTML = `
+                    <div class="col-span-full text-center py-8 bg-slate-50 rounded-xl border border-dashed border-slate-300">
+                        <i data-lucide="calendar-x" class="h-10 w-10 text-slate-400 mx-auto mb-3"></i>
+                        <p class="text-slate-600 font-medium">No hay registros de turnos para esta fecha.</p>
+                        <p class="text-sm text-slate-500">Actualmente solo hay datos cargados para Junio 2026.</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            const farmaciasDelDia = dbFarmacias[grupo];
+            let html = '';
+
+            farmaciasDelDia.forEach(farmacia => {
+                const mapQuery = encodeURIComponent(farmacia.nombre + ' ' + farmacia.direccion + ', Santa Rosa, La Pampa');
+                
+                const btnTelefono = farmacia.telefono 
+                    ? `<a href="tel:+5492954${farmacia.telefono.length <= 6 ? farmacia.telefono : farmacia.telefono.slice(-6)}" class="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full justify-center">
+                        <i data-lucide="phone" class="h-4 w-4"></i> Llamar
+                       </a>` 
+                    : ``;
+                
+                const btnWhatsapp = farmacia.whatsapp 
+                    ? `<a href="https://wa.me/549${farmacia.whatsapp}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full justify-center border border-green-200">
+                        <i data-lucide="message-circle" class="h-4 w-4"></i> WhatsApp
+                       </a>` 
+                    : ``;
+
+                html += `
+                    <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-100 flex flex-col h-full hover:shadow-lg transition-shadow">
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-bold text-purple-900 mb-1 flex items-start gap-2">
+                                <i data-lucide="cross" class="h-5 w-5 text-cyan-500 shrink-0 mt-1"></i> 
+                                ${farmacia.nombre}
+                            </h3>
+                            <p class="text-slate-600 flex items-center gap-2 mb-4 text-sm mt-2">
+                                <i data-lucide="map-pin" class="h-4 w-4 text-slate-400 shrink-0"></i>
+                                ${farmacia.direccion}
+                            </p>
+                        </div>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex gap-2">
+                                ${btnTelefono}
+                                ${btnWhatsapp}
+                            </div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full border border-cyan-200">
+                                <i data-lucide="map" class="h-4 w-4"></i> Ver en Google Maps
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            contenedor.innerHTML = html;
+            lucide.createIcons(); // Recargar íconos inyectados
+        }
+
+        // Listener para cuando cambie la fecha
+        document.getElementById('fecha-farmacia').addEventListener('change', mostrarFarmacias);
+        
+        // Carga inicial
+        mostrarFarmacias();
 
     </script>
 </body>
