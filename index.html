@@ -95,33 +95,33 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
 
-        <!-- Widget del Clima -->
-        <section id="clima" class="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-3xl shadow-xl p-6 md:p-8 text-white relative overflow-hidden">
+        <!-- Widget del Clima (COMPACTO) -->
+        <section id="clima" class="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl shadow-lg p-4 md:p-6 text-white relative overflow-hidden">
             <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
-                <i data-lucide="cloud-sun" class="w-64 h-64"></i>
+                <i data-lucide="cloud-sun" class="w-40 h-40"></i>
             </div>
             
-            <div class="relative z-10 flex flex-col lg:flex-row gap-8 items-center justify-between">
+            <div class="relative z-10 flex flex-col md:flex-row gap-4 items-center justify-between">
                 <!-- Clima Actual -->
-                <div class="text-center lg:text-left flex flex-col md:flex-row items-center gap-6">
-                    <div id="current-weather-icon" class="bg-white/20 p-4 rounded-full backdrop-blur-sm shadow-inner">
-                        <i data-lucide="loader-2" class="h-12 w-12 animate-spin"></i>
+                <div class="flex flex-row items-center gap-4 w-full md:w-auto justify-center md:justify-start">
+                    <div id="current-weather-icon" class="bg-white/20 p-3 rounded-full backdrop-blur-sm shadow-inner shrink-0">
+                        <i data-lucide="loader-2" class="h-8 w-8 animate-spin"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold opacity-90">Santa Rosa, La Pampa</h3>
-                        <div class="flex items-baseline gap-2 justify-center lg:justify-start mt-1">
-                            <span id="current-temp" class="text-5xl md:text-6xl font-extrabold tracking-tighter">--</span>
-                            <span class="text-3xl font-bold">°C</span>
+                        <h3 class="text-lg font-bold opacity-90 leading-tight">Santa Rosa, La Pampa</h3>
+                        <div class="flex items-baseline gap-1 mt-0.5">
+                            <span id="current-temp" class="text-3xl md:text-4xl font-extrabold tracking-tighter">--</span>
+                            <span class="text-xl font-bold">°C</span>
+                            <span id="current-desc" class="text-sm font-medium ml-2 opacity-90">Obteniendo...</span>
                         </div>
-                        <p id="current-desc" class="text-base font-medium mt-1">Obteniendo datos del clima...</p>
-                        <p class="text-[10px] uppercase tracking-wider opacity-75 mt-2 font-semibold flex items-center justify-center lg:justify-start gap-1">
-                            <i data-lucide="info" class="h-3 w-3"></i> Fuente: Servicio Meteorológico Nacional
+                        <p class="text-[9px] uppercase tracking-wider opacity-75 mt-1 font-semibold flex items-center gap-1">
+                            <i data-lucide="info" class="h-3 w-3"></i> Fuente: SMN
                         </p>
                     </div>
                 </div>
 
                 <!-- Pronóstico (5 días) -->
-                <div class="flex gap-3 overflow-x-auto w-full lg:w-auto pb-4 lg:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']" id="forecast-container">
+                <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']" id="forecast-container">
                     <!-- Cards de pronóstico (Inyectadas por JS) -->
                 </div>
             </div>
@@ -916,21 +916,21 @@
                 const weatherMap = {
                     0: { icon: 'sun', text: 'Despejado' },
                     1: { icon: 'sun', text: 'Mayormente despejado' },
-                    2: { icon: 'cloud-sun', text: 'Parcialmente nublado' },
+                    2: { icon: 'cloud-sun', text: 'Parc. nublado' },
                     3: { icon: 'cloud', text: 'Nublado' },
                     45: { icon: 'cloud-fog', text: 'Niebla' },
                     48: { icon: 'cloud-fog', text: 'Niebla' },
-                    51: { icon: 'cloud-drizzle', text: 'Llovizna leve' },
+                    51: { icon: 'cloud-drizzle', text: 'Llovizna' },
                     53: { icon: 'cloud-drizzle', text: 'Llovizna' },
                     55: { icon: 'cloud-drizzle', text: 'Llovizna densa' },
                     61: { icon: 'cloud-rain', text: 'Lluvia leve' },
-                    63: { icon: 'cloud-rain', text: 'Lluvia moderada' },
+                    63: { icon: 'cloud-rain', text: 'Lluvia' },
                     65: { icon: 'cloud-rain', text: 'Lluvia fuerte' },
                     71: { icon: 'snowflake', text: 'Nieve leve' },
-                    73: { icon: 'snowflake', text: 'Nieve moderada' },
+                    73: { icon: 'snowflake', text: 'Nieve' },
                     75: { icon: 'snowflake', text: 'Nieve fuerte' },
                     95: { icon: 'cloud-lightning', text: 'Tormenta' },
-                    99: { icon: 'cloud-lightning', text: 'Tormenta fuerte' }
+                    99: { icon: 'cloud-lightning', text: 'Torm. fuerte' }
                 };
 
                 const getW = (code) => weatherMap[code] || { icon: 'cloud', text: 'Nublado' };
@@ -939,7 +939,7 @@
                 const currentW = getW(data.current.weather_code);
                 document.getElementById('current-temp').innerText = Math.round(data.current.temperature_2m);
                 document.getElementById('current-desc').innerText = currentW.text;
-                document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="${currentW.icon}" class="h-12 w-12 text-yellow-300 drop-shadow-md"></i>`;
+                document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="${currentW.icon}" class="h-8 w-8 md:h-10 md:w-10 text-yellow-300 drop-shadow-md"></i>`;
 
                 // 2. Actualizar pronóstico de 5 días
                 const forecastContainer = document.getElementById('forecast-container');
@@ -948,7 +948,6 @@
                 const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
                 for(let i=0; i<data.daily.time.length; i++) {
-                    // Evitar problemas de zona horaria
                     const dateStr = data.daily.time[i] + 'T00:00:00'; 
                     const dateObj = new Date(dateStr);
                     const dayName = days[dateObj.getDay()];
@@ -958,11 +957,12 @@
                     const max = Math.round(data.daily.temperature_2m_max[i]);
                     const min = Math.round(data.daily.temperature_2m_min[i]);
 
+                    // TARJETAS COMPACTAS
                     forecastHTML += `
-                        <div class="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-2xl p-4 min-w-[95px] border border-white/20 shadow-sm transition-transform hover:-translate-y-1">
-                            <span class="text-sm font-bold uppercase tracking-wide">${dayName} ${dayDate}</span>
-                            <i data-lucide="${w.icon}" class="h-8 w-8 my-3 ${w.icon.includes('sun') ? 'text-yellow-300' : 'text-white'}"></i>
-                            <div class="flex gap-3 text-sm">
+                        <div class="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-xl p-2 min-w-[70px] border border-white/20 shadow-sm transition-transform hover:-translate-y-1">
+                            <span class="text-[10px] font-bold uppercase tracking-wide">${dayName} ${dayDate}</span>
+                            <i data-lucide="${w.icon}" class="h-6 w-6 my-1.5 ${w.icon.includes('sun') ? 'text-yellow-300' : 'text-white'}"></i>
+                            <div class="flex gap-2 text-xs">
                                 <span class="font-bold" title="Máxima">${max}°</span>
                                 <span class="opacity-70" title="Mínima">${min}°</span>
                             </div>
@@ -971,13 +971,13 @@
                 }
                 forecastContainer.innerHTML = forecastHTML;
                 
-                // Recargar los íconos de Lucide que acabamos de insertar
+                // Recargar los íconos de Lucide
                 lucide.createIcons();
 
             } catch (error) {
                 console.error('Error al cargar clima:', error);
-                document.getElementById('current-desc').innerText = "Pronóstico no disponible";
-                document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="cloud-off" class="h-12 w-12 opacity-50"></i>`;
+                document.getElementById('current-desc').innerText = "No disponible";
+                document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="cloud-off" class="h-8 w-8 opacity-50"></i>`;
                 lucide.createIcons();
             }
         }
