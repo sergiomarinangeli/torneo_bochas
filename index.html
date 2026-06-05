@@ -18,6 +18,47 @@
         /* Animación suave para el widget */
         .widget-enter { opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; }
         .widget-active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+
+        /* Estilos para Juegos */
+        .game-canvas-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px; /* Tamaño máximo para móviles */
+            margin: 0 auto;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            background-color: #87CEEB; /* Cielo por defecto */
+            touch-action: none; /* Evitar scroll en canvas táctil */
+        }
+        
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(88, 28, 135, 0.8); /* purple-900 con opacidad */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hidden { display: none !important; }
+        
+        /* Ocultar scrollbar en contenedor de juegos si es muy ancho */
+        .games-scroll::-webkit-scrollbar { display: none; }
+        .games-scroll { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-cyan-300 selection:text-slate-900 relative">
@@ -32,13 +73,13 @@
                 </div>
                 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                <div class="hidden md:flex space-x-4 lg:space-x-6">
                     <a href="#inicio" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
                     <a href="#sedes" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Sedes</a>
                     <a href="#cronograma" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Cronograma</a>
                     <a href="#comite" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Comité</a>
                     <a href="#conducta" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Reglamento</a>
-                    <a href="#farmacias" class="text-cyan-300 hover:bg-purple-800 hover:text-white px-2 py-2 rounded-md text-sm font-bold transition-colors flex items-center gap-1"><i data-lucide="cross" class="h-4 w-4"></i> Farmacias</a>
+                    <a href="#juegos" class="text-cyan-300 hover:bg-purple-800 hover:text-white px-2 py-2 rounded-md text-sm font-bold transition-colors flex items-center gap-1"><i data-lucide="gamepad-2" class="h-4 w-4"></i> Juegos</a>
                     <a href="#evaluacion" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Evaluación</a>
                 </div>
 
@@ -59,7 +100,7 @@
                 <a href="#cronograma" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Cronograma</a>
                 <a href="#comite" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Comité Organizador</a>
                 <a href="#conducta" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Código de Conducta</a>
-                <a href="#farmacias" class="mobile-link text-cyan-300 hover:bg-purple-700 flex items-center gap-2 px-3 py-4 rounded-md text-base font-bold border-b border-purple-700/50"><i data-lucide="cross" class="h-5 w-5"></i> Farmacias de Turno</a>
+                <a href="#juegos" class="mobile-link text-cyan-300 hover:bg-purple-700 flex items-center gap-2 px-3 py-4 rounded-md text-base font-bold border-b border-purple-700/50"><i data-lucide="gamepad-2" class="h-5 w-5"></i> Zona de Juegos</a>
                 <a href="#evaluacion" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium">Evaluaciones</a>
             </div>
         </div>
@@ -77,7 +118,7 @@
                 Cuaderno de Bienvenida • 5, 6 y 7 de Junio • Santa Rosa, La Pampa
             </p>
             <div class="flex justify-center mt-8">
-                <img src="bochin-index.png" alt="Bochín - Mascota Oficial" class="h-48 md:h-64 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300" />
+                <img src="bochin-index_2.png" alt="Bochín - Mascota Oficial" class="h-48 md:h-64 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300" />
             </div>
         </div>
     </section>
@@ -97,38 +138,6 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
 
-        <!-- Widget del Clima (COMPACTO) -->
-        <section id="clima" class="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl shadow-lg p-4 md:p-6 text-white relative overflow-hidden">
-            <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
-                <i data-lucide="cloud-sun" class="w-40 h-40"></i>
-            </div>
-            
-            <div class="relative z-10 flex flex-col md:flex-row gap-4 items-center justify-between">
-                <!-- Clima Actual -->
-                <div class="flex flex-row items-center gap-4 w-full md:w-auto justify-center md:justify-start">
-                    <div id="current-weather-icon" class="bg-white/20 p-3 rounded-full backdrop-blur-sm shadow-inner shrink-0">
-                        <i data-lucide="loader-2" class="h-8 w-8 animate-spin"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold opacity-90 leading-tight">Santa Rosa, La Pampa</h3>
-                        <div class="flex items-baseline gap-1 mt-0.5">
-                            <span id="current-temp" class="text-3xl md:text-4xl font-extrabold tracking-tighter">--</span>
-                            <span class="text-xl font-bold">°C</span>
-                            <span id="current-desc" class="text-sm font-medium ml-2 opacity-90">Obteniendo...</span>
-                        </div>
-                        <p class="text-[9px] uppercase tracking-wider opacity-75 mt-1 font-semibold flex items-center gap-1">
-                            <i data-lucide="info" class="h-3 w-3"></i> Fuente: SMN
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Pronóstico (5 días) -->
-                <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']" id="forecast-container">
-                    <!-- Cards de pronóstico (Inyectadas por JS) -->
-                </div>
-            </div>
-        </section>
-
         <!-- Bienvenida -->
         <section class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border-t-8 border-cyan-400 relative">
             <div class="absolute -top-10 right-10 bg-cyan-400 text-purple-900 p-4 rounded-full shadow-lg">
@@ -144,7 +153,6 @@
                 </p>
                 <p>Queremos agradecer a todos los atletas, entrenadores, voluntarios, organizadores y patrocinadores por su dedicación y compromiso, sin los cuales este torneo no sería posible.</p>
                 <p>A todos ustedes les deseamos lo mejor en cada prueba, y que, más allá del resultado, este evento sea una oportunidad para disfrutar del deporte, forjar nuevas amistades y seguir creciendo como comunidad.</p>
-                <p class="font-bold text-purple-900 mt-6">¡Les damos la Bienvenida a Santa Rosa, a este torneo de grandes emociones y que ésta competencia sea un reflejo del verdadero espíritu del atletismo y de la inclusión! ¡Muchísima suerte!</p>
             </div>
         </section>
 
@@ -549,6 +557,90 @@
             </div>
         </section>
 
+        <!-- Zona de Juegos -->
+        <section id="juegos" class="bg-cyan-50 rounded-3xl p-6 md:p-12 border-2 border-cyan-200 relative overflow-hidden">
+            <div class="absolute -top-10 left-10 bg-cyan-400 text-purple-900 p-4 rounded-full shadow-lg">
+                <i data-lucide="gamepad-2" class="h-10 w-10"></i>
+            </div>
+            
+            <div class="text-center mb-10 mt-4 relative z-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-purple-900 mb-4">Zona de Juegos</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">¡Ponte a prueba mientras esperas tu turno! Dos minijuegos rápidos para pasar el rato. Toca la pantalla o usa el mouse para jugar.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12 items-center justify-center relative z-10">
+                
+                <!-- JUEGO 1: MINI BOCHAS -->
+                <div class="w-full max-w-[400px]">
+                    <div class="bg-white rounded-t-2xl p-4 border-x-2 border-t-2 border-slate-200 text-center">
+                        <h3 class="font-bold text-xl text-purple-900 flex items-center justify-center gap-2">
+                            <i data-lucide="target" class="h-5 w-5 text-cyan-500"></i> Mini Bochas
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">Apunta, mantén presionado para dar fuerza y suelta para lanzar la bocha azul hacia Bochín. ¡Intenta quedar lo más cerca posible!</p>
+                    </div>
+                    <div class="game-canvas-container border-2 border-slate-200 rounded-b-2xl shadow-xl h-[500px]" id="bochas-container" style="background-color: #e2e8f0; background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
+                        <div id="bochas-start-screen" class="game-overlay rounded-b-2xl">
+                            <img src="bochín 2.png" alt="Bochín" class="h-24 w-auto mb-4 drop-shadow-lg">
+                            <h4 class="text-2xl font-bold text-cyan-300 mb-2">Mini Bochas</h4>
+                            <button id="btn-start-bochas" class="bg-cyan-500 hover:bg-cyan-400 text-purple-950 font-bold py-2 px-6 rounded-full mt-4 transition-transform hover:scale-105 active:scale-95 shadow-lg">Jugar Ahora</button>
+                        </div>
+                        <canvas id="bochas-canvas" width="400" height="500"></canvas>
+                        
+                        <!-- Interfaz UI superpuesta -->
+                        <div id="bochas-ui" class="absolute top-2 w-full px-4 flex justify-between pointer-events-none hidden">
+                            <div class="bg-white/80 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-purple-900 shadow">Tiros: <span id="bochas-shots">0</span>/3</div>
+                            <div class="bg-white/80 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-purple-900 shadow">Puntos: <span id="bochas-score">0</span></div>
+                        </div>
+                        <!-- Indicador de Fuerza -->
+                        <div id="power-bar-container" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-3/4 h-4 bg-slate-300 rounded-full border border-slate-400 hidden pointer-events-none">
+                            <div id="power-bar" class="h-full bg-gradient-to-r from-green-400 via-yellow-400 to-red-500 rounded-full w-0 transition-all duration-75"></div>
+                        </div>
+                        
+                        <div id="bochas-gameover" class="game-overlay rounded-b-2xl hidden">
+                            <h4 class="text-3xl font-bold text-white mb-2">¡Fin del Juego!</h4>
+                            <p class="text-xl text-cyan-200 mb-6">Puntaje: <span id="bochas-final-score" class="font-bold text-3xl">0</span></p>
+                            <button id="btn-restart-bochas" class="bg-white text-purple-900 hover:bg-cyan-100 font-bold py-2 px-6 rounded-full transition-transform hover:scale-105 active:scale-95 shadow-lg">Jugar de nuevo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JUEGO 2: FLAPPY BOCHÍN -->
+                <div class="w-full max-w-[400px]">
+                    <div class="bg-white rounded-t-2xl p-4 border-x-2 border-t-2 border-slate-200 text-center">
+                        <h3 class="font-bold text-xl text-purple-900 flex items-center justify-center gap-2">
+                            <i data-lucide="plane" class="h-5 w-5 text-cyan-500"></i> Flappy Bochín
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">Toca la pantalla o haz clic para que Bochín salte. ¡Esquiva los postes y llega lo más lejos posible!</p>
+                    </div>
+                    <div class="game-canvas-container border-2 border-slate-200 rounded-b-2xl shadow-xl h-[500px]" id="flappy-container">
+                        
+                        <div id="flappy-start-screen" class="game-overlay rounded-b-2xl">
+                            <img src="bochin-index_2.png" alt="Bochín Corriendo" class="h-24 w-auto mb-4 drop-shadow-lg">
+                            <h4 class="text-2xl font-bold text-cyan-300 mb-2">Flappy Bochín</h4>
+                            <button id="btn-start-flappy" class="bg-cyan-500 hover:bg-cyan-400 text-purple-950 font-bold py-2 px-6 rounded-full mt-4 transition-transform hover:scale-105 active:scale-95 shadow-lg">Jugar Ahora</button>
+                        </div>
+                        <canvas id="flappy-canvas" width="400" height="500"></canvas>
+                        
+                        <div id="flappy-score-display" class="absolute top-4 left-0 w-full text-center pointer-events-none hidden">
+                            <span class="text-5xl font-extrabold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] stroke-black" style="-webkit-text-stroke: 2px black;">0</span>
+                        </div>
+
+                        <div id="flappy-gameover" class="game-overlay rounded-b-2xl hidden">
+                            <h4 class="text-3xl font-bold text-white mb-2">¡Ups!</h4>
+                            <div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/20 mb-6 w-3/4">
+                                <p class="text-sm text-cyan-200 uppercase tracking-wider font-bold mb-1">Puntaje</p>
+                                <p id="flappy-final-score" class="font-bold text-4xl text-white mb-3">0</p>
+                                <p class="text-xs text-slate-300 uppercase tracking-wider font-bold mb-1">Mejor</p>
+                                <p id="flappy-best-score" class="font-bold text-2xl text-yellow-400">0</p>
+                            </div>
+                            <button id="btn-restart-flappy" class="bg-white text-purple-900 hover:bg-cyan-100 font-bold py-2 px-6 rounded-full transition-transform hover:scale-105 active:scale-95 shadow-lg flex items-center gap-2"><i data-lucide="rotate-ccw" class="h-4 w-4"></i> Reintentar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- Sección de Farmacias de Turno -->
         <section id="farmacias" class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border-t-8 border-purple-500 relative overflow-hidden">
             <div class="absolute -top-10 right-10 bg-purple-500 text-white p-4 rounded-full shadow-lg">
@@ -832,7 +924,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-purple-950 text-white py-12 text-center pb-32 md:pb-12"> <!-- Se añadió padding inferior para móviles por el botón flotante -->
+    <footer class="bg-purple-950 text-white py-12 text-center pb-32 md:pb-12">
         <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
             <img src="LOGO LA PAMPA 2026 SEDE VERTICAL.png" alt="Torneo Nacional de Bochas Unificado La Pampa 2026" class="h-20 w-auto object-contain mb-4" />
             <p class="text-xl font-bold tracking-widest uppercase mb-2">Torneo Nacional de Bochas Unificado</p>
@@ -845,7 +937,7 @@
                <img src="LOGO SANTA ROSA.png" alt="Municipio Santa Rosa" class="h-12 sm:h-16 object-contain" />
             </div>
             
-            <p class="mt-8 text-xs text-purple-600">Cuaderno de Bienvenida Digital - Desarrollado para uso institucional.</p>
+            <p class="mt-8 text-xs text-purple-600">Cuaderno de Bienvenida Digital - Desarrollado para uso institucional. - Sergio Marinangeli <br/> <a href="tel:+5492954685638" class="hover:text-cyan-400 font-bold transition-colors inline-flex items-center gap-1 mt-1"><i data-lucide="phone" class="h-3 w-3"></i> +54 9 2954 68-5638</a></p>
         </div>
     </footer>
 
@@ -855,8 +947,7 @@
         <div id="agent-widget" class="widget-enter bg-white w-72 md:w-80 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden mb-4 transition-all duration-300 ease-out origin-bottom-right">
             <!-- Encabezado de la Tarjeta -->
             <div class="bg-cyan-500 p-4 text-purple-900 flex items-center gap-3">
-                <!-- ACA PUEDES CAMBIAR bochin-index.png POR bochin-hablando.png SI CREAS UNA -->
-                <img src="bochin-index.png" class="h-12 w-12 bg-white rounded-full object-cover p-1 shadow-sm" alt="Bochín">
+                <img src="bochin-index_2.png" class="h-12 w-12 bg-white rounded-full object-cover p-1 shadow-sm" alt="Bochín">
                 <div>
                     <h3 class="font-bold text-lg leading-tight">Bochín Virtual</h3>
                     <p class="text-xs font-medium opacity-80">Asistente de Voz IA</p>
@@ -874,17 +965,14 @@
 
         <!-- Botón Flotante -->
         <button id="agent-btn" class="bg-cyan-500 hover:bg-cyan-400 p-1 md:p-1.5 rounded-full shadow-[0_10px_25px_rgba(6,182,212,0.5)] transition-all duration-300 hover:scale-110 z-50 flex items-center justify-center border-4 border-white">
-            <!-- Imagen por defecto (Bochín). ACA PUEDES CAMBIAR bochin-index.png POR bochin-cara.png -->
-            <img src="bochin-index.png" id="agent-avatar" class="h-12 w-12 md:h-14 md:w-14 object-cover object-top rounded-full" alt="Hablá con Bochín">
-            
-            <!-- Icono de Cerrar (X) oculto por defecto -->
+            <img src="bochin-index_2.png" id="agent-avatar" class="h-12 w-12 md:h-14 md:w-14 object-cover object-top rounded-full" alt="Hablá con Bochín">
             <i data-lucide="x" id="agent-close-icon" class="h-10 w-10 md:h-12 md:w-12 text-white hidden m-1"></i>
         </button>
     </div>
 
-    <!-- Lógica de Interactividad Básica -->
+    <!-- Script Principal -->
     <script>
-        // Inicializar Iconos
+        // Inicializar Iconos Lucide
         lucide.createIcons();
 
         // Control del Menú Móvil
@@ -937,19 +1025,18 @@
             }
         });
 
-        // Widget del Clima (Datos en tiempo real para Santa Rosa)
+        // ----------------------------------------------------------------------
+        // SISTEMA DE CLIMA (WIDGET COMPACTO)
+        // ----------------------------------------------------------------------
         async function loadWeather() {
-            // Coordenadas exactas de Santa Rosa, La Pampa
             const lat = -36.6167;
             const lon = -64.2833;
-            // Consulta de pronóstico para 5 días
             const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=America%2FArgentina%2FBuenos_Aires&forecast_days=5`;
 
             try {
                 const response = await fetch(url);
                 const data = await response.json();
 
-                // Mapeo de códigos a íconos y texto en español
                 const weatherMap = {
                     0: { icon: 'sun', text: 'Despejado' },
                     1: { icon: 'sun', text: 'Mayormente despejado' },
@@ -972,16 +1059,13 @@
 
                 const getW = (code) => weatherMap[code] || { icon: 'cloud', text: 'Nublado' };
 
-                // 1. Actualizar clima actual
                 const currentW = getW(data.current.weather_code);
                 document.getElementById('current-temp').innerText = Math.round(data.current.temperature_2m);
                 document.getElementById('current-desc').innerText = currentW.text;
                 document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="${currentW.icon}" class="h-8 w-8 md:h-10 md:w-10 text-yellow-300 drop-shadow-md"></i>`;
 
-                // 2. Actualizar pronóstico de 5 días
                 const forecastContainer = document.getElementById('forecast-container');
                 let forecastHTML = '';
-                
                 const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
                 for(let i=0; i<data.daily.time.length; i++) {
@@ -994,7 +1078,6 @@
                     const max = Math.round(data.daily.temperature_2m_max[i]);
                     const min = Math.round(data.daily.temperature_2m_min[i]);
 
-                    // TARJETAS COMPACTAS
                     forecastHTML += `
                         <div class="flex flex-col items-center bg-white/10 backdrop-blur-md rounded-xl p-2 min-w-[70px] border border-white/20 shadow-sm transition-transform hover:-translate-y-1">
                             <span class="text-[10px] font-bold uppercase tracking-wide">${dayName} ${dayDate}</span>
@@ -1007,8 +1090,6 @@
                     `;
                 }
                 forecastContainer.innerHTML = forecastHTML;
-                
-                // Recargar los íconos de Lucide
                 lucide.createIcons();
 
             } catch (error) {
@@ -1018,8 +1099,6 @@
                 lucide.createIcons();
             }
         }
-
-        // Ejecutar carga del clima al abrir la página
         loadWeather();
 
         // ----------------------------------------------------------------------
@@ -1035,162 +1114,380 @@
         };
 
         const dbFarmacias = {
-            "A":[
-                {"nombre":"Ameghino","direccion":"Ameghino 587","telefono":"414441","whatsapp":"2954815352"},
-                {"nombre":"Bagliani","direccion":"Mitre 134","telefono":"417500","whatsapp":"2954599667"},
-                {"nombre":"Del Sol","direccion":"Urquiza 490","telefono":"418006","whatsapp":"2954313253"},
-                {"nombre":"Ponce","direccion":"Av. Edison 1248","telefono":"387778"},
-                {"nombre":"Sadowski","direccion":"Av. Uruguay 681","telefono":"418155","whatsapp":"2954318487"}
-            ],
-            "B":[
-                {"nombre":"Farmacity 281","direccion":"Avellaneda 236"},
-                {"nombre":"Ferratto","direccion":"Raúl B. Díaz 1795","telefono":"700999"},
-                {"nombre":"Integral","direccion":"Juan Schmidt 1058","telefono":"410809"},
-                {"nombre":"San Andrés SRL","direccion":"Autonomista 846","telefono":"411333"},
-                {"nombre":"Santa Lucía","direccion":"Av. Luro 565","telefono":"416661"}
-            ],
-            "C":[
-                {"nombre":"Belgrano","direccion":"Av. Belgrano 442","telefono":"416239","whatsapp":"2954851585"},
-                {"nombre":"Butaló","direccion":"Unanue 366/372","telefono":"410555","whatsapp":"2954672444"},
-                {"nombre":"Pampa SRL","direccion":"España 490","telefono":"411000","whatsapp":"2954592296"},
-                {"nombre":"Polyfarma Norte","direccion":"1° de Mayo y R.B. Díaz","telefono":"417400"},
-                {"nombre":"Quintana","direccion":"Gral. Pico 258","telefono":"413757","whatsapp":"2954653445"}
-            ],
-            "D":[
-                {"nombre":"Calamari","direccion":"Av. Luro 56","telefono":"424382"},
-                {"nombre":"Don Bosco","direccion":"Cnel. Gil 15","telefono":"423101"},
-                {"nombre":"Follmer","direccion":"Arg. Valle 672","telefono":"417617"},
-                {"nombre":"Gaman","direccion":"Emilio Zola 382","telefono":"418905"},
-                {"nombre":"Vitalfarma","direccion":"Ameghino 713","telefono":"410500"}
-            ],
-            "E":[
-                {"nombre":"Costabel","direccion":"Av. Uruguay 350","telefono":"417333"},
-                {"nombre":"Demaria","direccion":"Belgrano Norte 672","telefono":"410900"},
-                {"nombre":"Palasciano","direccion":"Irigoyen y Moreno","telefono":"416400"},
-                {"nombre":"Pío XII","direccion":"Ameghino y Pío XII","telefono":"427400"},
-                {"nombre":"Weigel","direccion":"A. Cavero 306","telefono":"415651"}
-            ],
-            "F":[
-                {"nombre":"España SCS","direccion":"Gil y España","telefono":"425169"},
-                {"nombre":"Libertad SRL","direccion":"Unanue 514","telefono":"431903"},
-                {"nombre":"Lutisky","direccion":"Luro e Irigoyen","telefono":"410381"},
-                {"nombre":"Santa Cecilia","direccion":"Spinetto 897","telefono":"414444"},
-                {"nombre":"Vial","direccion":"Gentili 846","telefono":"413300"}
-            ],
-            "G":[
-                {"nombre":"Austral","direccion":"Ameghino y Valerga","telefono":"415100"},
-                {"nombre":"Cazaux","direccion":"Garibaldi 498","telefono":"415600"},
-                {"nombre":"Pasteur","direccion":"Escalante y Pico","telefono":"410110"},
-                {"nombre":"Sanitalix","direccion":"Av. Perón 2715"},
-                {"nombre":"Wall Mapu","direccion":"R. Sáenz Peña 915","telefono":"834344"}
-            ],
-            "H":[
-                {"nombre":"Americana","direccion":"L. de la Torre 418","telefono":"410017"},
-                {"nombre":"El Mate","direccion":"México 968","telefono":"418081"},
-                {"nombre":"Gugliara","direccion":"San Luis 397","telefono":"438643"},
-                {"nombre":"La Botica","direccion":"San Martín Oeste 592","telefono":"416146"},
-                {"nombre":"Villa Alonso","direccion":"Belgrano Norte 317","telefono":"417001"}
-            ],
-            "I":[
-                {"nombre":"Alsina","direccion":"Alsina 351","telefono":"414546"},
-                {"nombre":"Davit","direccion":"Telén y San Luis","telefono":"418833"},
-                {"nombre":"Farmatop","direccion":"A. Palacios 1213","telefono":"414141"},
-                {"nombre":"Norte SCS","direccion":"Escalante 52","telefono":"386860"},
-                {"nombre":"Vázquez","direccion":"Schmidt 1501","telefono":"417138"}
-            ],
-            "J":[
-                {"nombre":"Brett","direccion":"Liberato Rosas 1593","telefono":"830300"},
-                {"nombre":"La Clínica","direccion":"San Martín 437","telefono":"438734"},
-                {"nombre":"Los Álamos","direccion":"Raúl B. Díaz 1367","telefono":"418884"},
-                {"nombre":"Moderna","direccion":"Procrear L6","telefono":"246252"},
-                {"nombre":"Río","direccion":"Av. Luro 2446","telefono":"455729"}
-            ],
-            "K":[
-                {"nombre":"Changomás Tienda 1100","direccion":"Av. Perón 2325","telefono":"425470"},
-                {"nombre":"Faerac","direccion":"R.S. Peña 881","telefono":"418800"},
-                {"nombre":"Farmacity 303","direccion":"San Martín 317"}
-            ],
-            "L":[
-                {"nombre":"América","direccion":"Autonomista 1339","telefono":"415060"},
-                {"nombre":"Changomás","direccion":"Santiago Marzo 1550","telefono":"423339"},
-                {"nombre":"Del Museo","direccion":"Pellegrini 174","telefono":"413785"},
-                {"nombre":"Leal","direccion":"Rivadavia 101","telefono":"420320"},
-                {"nombre":"Pasco","direccion":"Yrigoyen 123","telefono":"412910"}
-            ]
+            "A":[{"nombre":"Ameghino","direccion":"Ameghino 587","telefono":"414441","whatsapp":"2954815352"},{"nombre":"Bagliani","direccion":"Mitre 134","telefono":"417500","whatsapp":"2954599667"},{"nombre":"Del Sol","direccion":"Urquiza 490","telefono":"418006","whatsapp":"2954313253"},{"nombre":"Ponce","direccion":"Av. Edison 1248","telefono":"387778"},{"nombre":"Sadowski","direccion":"Av. Uruguay 681","telefono":"418155","whatsapp":"2954318487"}],
+            "B":[{"nombre":"Farmacity 281","direccion":"Avellaneda 236"},{"nombre":"Ferratto","direccion":"Raúl B. Díaz 1795","telefono":"700999"},{"nombre":"Integral","direccion":"Juan Schmidt 1058","telefono":"410809"},{"nombre":"San Andrés SRL","direccion":"Autonomista 846","telefono":"411333"},{"nombre":"Santa Lucía","direccion":"Av. Luro 565","telefono":"416661"}],
+            "C":[{"nombre":"Belgrano","direccion":"Av. Belgrano 442","telefono":"416239","whatsapp":"2954851585"},{"nombre":"Butaló","direccion":"Unanue 366/372","telefono":"410555","whatsapp":"2954672444"},{"nombre":"Pampa SRL","direccion":"España 490","telefono":"411000","whatsapp":"2954592296"},{"nombre":"Polyfarma Norte","direccion":"1° de Mayo y R.B. Díaz","telefono":"417400"},{"nombre":"Quintana","direccion":"Gral. Pico 258","telefono":"413757","whatsapp":"2954653445"}],
+            "D":[{"nombre":"Calamari","direccion":"Av. Luro 56","telefono":"424382"},{"nombre":"Don Bosco","direccion":"Cnel. Gil 15","telefono":"423101"},{"nombre":"Follmer","direccion":"Arg. Valle 672","telefono":"417617"},{"nombre":"Gaman","direccion":"Emilio Zola 382","telefono":"418905"},{"nombre":"Vitalfarma","direccion":"Ameghino 713","telefono":"410500"}],
+            "E":[{"nombre":"Costabel","direccion":"Av. Uruguay 350","telefono":"417333"},{"nombre":"Demaria","direccion":"Belgrano Norte 672","telefono":"410900"},{"nombre":"Palasciano","direccion":"Irigoyen y Moreno","telefono":"416400"},{"nombre":"Pío XII","direccion":"Ameghino y Pío XII","telefono":"427400"},{"nombre":"Weigel","direccion":"A. Cavero 306","telefono":"415651"}],
+            "F":[{"nombre":"España SCS","direccion":"Gil y España","telefono":"425169"},{"nombre":"Libertad SRL","direccion":"Unanue 514","telefono":"431903"},{"nombre":"Lutisky","direccion":"Luro e Irigoyen","telefono":"410381"},{"nombre":"Santa Cecilia","direccion":"Spinetto 897","telefono":"414444"},{"nombre":"Vial","direccion":"Gentili 846","telefono":"413300"}],
+            "G":[{"nombre":"Austral","direccion":"Ameghino y Valerga","telefono":"415100"},{"nombre":"Cazaux","direccion":"Garibaldi 498","telefono":"415600"},{"nombre":"Pasteur","direccion":"Escalante y Pico","telefono":"410110"},{"nombre":"Sanitalix","direccion":"Av. Perón 2715"},{"nombre":"Wall Mapu","direccion":"R. Sáenz Peña 915","telefono":"834344"}],
+            "H":[{"nombre":"Americana","direccion":"L. de la Torre 418","telefono":"410017"},{"nombre":"El Mate","direccion":"México 968","telefono":"418081"},{"nombre":"Gugliara","direccion":"San Luis 397","telefono":"438643"},{"nombre":"La Botica","direccion":"San Martín Oeste 592","telefono":"416146"},{"nombre":"Villa Alonso","direccion":"Belgrano Norte 317","telefono":"417001"}],
+            "I":[{"nombre":"Alsina","direccion":"Alsina 351","telefono":"414546"},{"nombre":"Davit","direccion":"Telén y San Luis","telefono":"418833"},{"nombre":"Farmatop","direccion":"A. Palacios 1213","telefono":"414141"},{"nombre":"Norte SCS","direccion":"Escalante 52","telefono":"386860"},{"nombre":"Vázquez","direccion":"Schmidt 1501","telefono":"417138"}],
+            "J":[{"nombre":"Brett","direccion":"Liberato Rosas 1593","telefono":"830300"},{"nombre":"La Clínica","direccion":"San Martín 437","telefono":"438734"},{"nombre":"Los Álamos","direccion":"Raúl B. Díaz 1367","telefono":"418884"},{"nombre":"Moderna","direccion":"Procrear L6","telefono":"246252"},{"nombre":"Río","direccion":"Av. Luro 2446","telefono":"455729"}],
+            "K":[{"nombre":"Changomás Tienda 1100","direccion":"Av. Perón 2325","telefono":"425470"},{"nombre":"Faerac","direccion":"R.S. Peña 881","telefono":"418800"},{"nombre":"Farmacity 303","direccion":"San Martín 317"}],
+            "L":[{"nombre":"América","direccion":"Autonomista 1339","telefono":"415060"},{"nombre":"Changomás","direccion":"Santiago Marzo 1550","telefono":"423339"},{"nombre":"Del Museo","direccion":"Pellegrini 174","telefono":"413785"},{"nombre":"Leal","direccion":"Rivadavia 101","telefono":"420320"},{"nombre":"Pasco","direccion":"Yrigoyen 123","telefono":"412910"}]
         };
 
         function mostrarFarmacias() {
             const fechaInput = document.getElementById('fecha-farmacia').value;
             const contenedor = document.getElementById('contenedor-farmacias');
-            
-            // Limpiar contenedor
             contenedor.innerHTML = '';
-            
             const grupo = calendarioFarmacias[fechaInput];
-            
             if (!grupo) {
-                contenedor.innerHTML = `
-                    <div class="col-span-full text-center py-8 bg-slate-50 rounded-xl border border-dashed border-slate-300">
-                        <i data-lucide="calendar-x" class="h-10 w-10 text-slate-400 mx-auto mb-3"></i>
-                        <p class="text-slate-600 font-medium">No hay registros de turnos para esta fecha.</p>
-                        <p class="text-sm text-slate-500">Actualmente solo hay datos cargados para Junio 2026.</p>
-                    </div>`;
+                contenedor.innerHTML = `<div class="col-span-full text-center py-8 bg-slate-50 rounded-xl border border-dashed border-slate-300"><i data-lucide="calendar-x" class="h-10 w-10 text-slate-400 mx-auto mb-3"></i><p class="text-slate-600 font-medium">No hay registros de turnos para esta fecha.</p><p class="text-sm text-slate-500">Actualmente solo hay datos cargados para Junio 2026.</p></div>`;
                 lucide.createIcons();
                 return;
             }
-
             const farmaciasDelDia = dbFarmacias[grupo];
             let html = '';
-
             farmaciasDelDia.forEach(farmacia => {
                 const mapQuery = encodeURIComponent(farmacia.nombre + ' ' + farmacia.direccion + ', Santa Rosa, La Pampa');
-                
-                const btnTelefono = farmacia.telefono 
-                    ? `<a href="tel:+5492954${farmacia.telefono.length <= 6 ? farmacia.telefono : farmacia.telefono.slice(-6)}" class="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full justify-center">
-                        <i data-lucide="phone" class="h-4 w-4"></i> Llamar
-                       </a>` 
-                    : ``;
-                
-                const btnWhatsapp = farmacia.whatsapp 
-                    ? `<a href="https://wa.me/549${farmacia.whatsapp}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full justify-center border border-green-200">
-                        <i data-lucide="message-circle" class="h-4 w-4"></i> WhatsApp
-                       </a>` 
-                    : ``;
-
-                html += `
-                    <div class="bg-white p-5 rounded-2xl shadow-md border border-slate-100 flex flex-col h-full hover:shadow-lg transition-shadow">
-                        <div class="flex-grow">
-                            <h3 class="text-xl font-bold text-purple-900 mb-1 flex items-start gap-2">
-                                <i data-lucide="cross" class="h-5 w-5 text-cyan-500 shrink-0 mt-1"></i> 
-                                ${farmacia.nombre}
-                            </h3>
-                            <p class="text-slate-600 flex items-center gap-2 mb-4 text-sm mt-2">
-                                <i data-lucide="map-pin" class="h-4 w-4 text-slate-400 shrink-0"></i>
-                                ${farmacia.direccion}
-                            </p>
-                        </div>
-                        <div class="mt-4 space-y-2">
-                            <div class="flex gap-2">
-                                ${btnTelefono}
-                                ${btnWhatsapp}
-                            </div>
-                            <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full border border-cyan-200">
-                                <i data-lucide="map" class="h-4 w-4"></i> Ver en Google Maps
-                            </a>
-                        </div>
-                    </div>
-                `;
+                const btnTelefono = farmacia.telefono ? `<a href="tel:+5492954${farmacia.telefono.length <= 6 ? farmacia.telefono : farmacia.telefono.slice(-6)}" class="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full justify-center"><i data-lucide="phone" class="h-4 w-4"></i> Llamar</a>` : ``;
+                const btnWhatsapp = farmacia.whatsapp ? `<a href="https://wa.me/549${farmacia.whatsapp}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full justify-center border border-green-200"><i data-lucide="message-circle" class="h-4 w-4"></i> WhatsApp</a>` : ``;
+                html += `<div class="bg-white p-5 rounded-2xl shadow-md border border-slate-100 flex flex-col h-full hover:shadow-lg transition-shadow"><div class="flex-grow"><h3 class="text-xl font-bold text-purple-900 mb-1 flex items-start gap-2"><i data-lucide="cross" class="h-5 w-5 text-cyan-500 shrink-0 mt-1"></i> ${farmacia.nombre}</h3><p class="text-slate-600 flex items-center gap-2 mb-4 text-sm mt-2"><i data-lucide="map-pin" class="h-4 w-4 text-slate-400 shrink-0"></i>${farmacia.direccion}</p></div><div class="mt-4 space-y-2"><div class="flex gap-2">${btnTelefono}${btnWhatsapp}</div><a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1 bg-cyan-50 hover:bg-cyan-100 text-cyan-700 px-3 py-2 rounded-lg text-sm font-semibold transition-colors w-full border border-cyan-200"><i data-lucide="map" class="h-4 w-4"></i> Ver en Google Maps</a></div></div>`;
             });
-
             contenedor.innerHTML = html;
-            lucide.createIcons(); // Recargar íconos inyectados
+            lucide.createIcons();
+        }
+        document.getElementById('fecha-farmacia').addEventListener('change', mostrarFarmacias);
+        mostrarFarmacias();
+
+        // ----------------------------------------------------------------------
+        // JUEGO 1: MINI BOCHAS
+        // ----------------------------------------------------------------------
+        const bochasCanvas = document.getElementById('bochas-canvas');
+        const bochasCtx = bochasCanvas.getContext('2d');
+        const bochasStartScreen = document.getElementById('bochas-start-screen');
+        const bochasGameOverScreen = document.getElementById('bochas-gameover');
+        const btnStartBochas = document.getElementById('btn-start-bochas');
+        const btnRestartBochas = document.getElementById('btn-restart-bochas');
+        const powerBarContainer = document.getElementById('power-bar-container');
+        const powerBar = document.getElementById('power-bar');
+        const bochasUi = document.getElementById('bochas-ui');
+        
+        let bochasAnimId;
+        let bochasState = 'start'; // start, aim, rolling, over
+        let bocha = { x: 200, y: 450, radius: 15, vx: 0, vy: 0 };
+        let bochin = { x: 200, y: 100, radius: 10 };
+        let bochasPower = 0;
+        let bochasPowerDir = 1;
+        let bochasShots = 0;
+        let bochasScore = 0;
+
+        // Cargar imagen de Bochín para el objetivo
+        const imgBochinObjeto = new Image();
+        imgBochinObjeto.src = 'bochín 2.png';
+
+        function initBochas() {
+            bochasState = 'aim';
+            bochasShots = 0;
+            bochasScore = 0;
+            document.getElementById('bochas-shots').innerText = bochasShots;
+            document.getElementById('bochas-score').innerText = bochasScore;
+            bochasStartScreen.classList.add('hidden');
+            bochasGameOverScreen.classList.add('hidden');
+            bochasUi.classList.remove('hidden');
+            powerBarContainer.classList.remove('hidden');
+            resetBocha();
+            bochasLoop();
         }
 
-        // Listener para cuando cambie la fecha
-        document.getElementById('fecha-farmacia').addEventListener('change', mostrarFarmacias);
+        function resetBocha() {
+            bocha.x = 200;
+            bocha.y = 450;
+            bocha.vx = 0;
+            bocha.vy = 0;
+            bochin.x = 100 + Math.random() * 200;
+            bochin.y = 50 + Math.random() * 150;
+            bochasPower = 0;
+            bochasState = 'aim';
+            powerBarContainer.classList.remove('hidden');
+        }
+
+        function drawBochas() {
+            bochasCtx.clearRect(0, 0, bochasCanvas.width, bochasCanvas.height);
+            
+            // Dibujar Bochín (Objetivo)
+            if(imgBochinObjeto.complete) {
+                bochasCtx.drawImage(imgBochinObjeto, bochin.x - 20, bochin.y - 20, 40, 40);
+            } else {
+                bochasCtx.beginPath();
+                bochasCtx.arc(bochin.x, bochin.y, bochin.radius, 0, Math.PI * 2);
+                bochasCtx.fillStyle = '#fff';
+                bochasCtx.fill();
+                bochasCtx.stroke();
+            }
+
+            // Dibujar Bocha Jugador
+            bochasCtx.beginPath();
+            bochasCtx.arc(bocha.x, bocha.y, bocha.radius, 0, Math.PI * 2);
+            bochasCtx.fillStyle = '#0ea5e9'; // cyan-500
+            bochasCtx.fill();
+            bochasCtx.strokeStyle = '#0284c7';
+            bochasCtx.lineWidth = 2;
+            bochasCtx.stroke();
+            bochasCtx.fillStyle = 'rgba(255,255,255,0.4)';
+            bochasCtx.beginPath();
+            bochasCtx.arc(bocha.x - 5, bocha.y - 5, 4, 0, Math.PI*2);
+            bochasCtx.fill();
+        }
+
+        function updateBochas() {
+            if (bochasState === 'aim') {
+                bochasPower += 2 * bochasPowerDir;
+                if (bochasPower > 100 || bochasPower < 0) bochasPowerDir *= -1;
+                powerBar.style.width = bochasPower + '%';
+            } else if (bochasState === 'rolling') {
+                bocha.x += bocha.vx;
+                bocha.y += bocha.vy;
+                bocha.vx *= 0.98; // fricción
+                bocha.vy *= 0.98;
+
+                // Rebote bordes
+                if (bocha.x - bocha.radius < 0 || bocha.x + bocha.radius > 400) bocha.vx *= -1;
+                if (bocha.y - bocha.radius < 0 || bocha.y + bocha.radius > 500) bocha.vy *= -1;
+
+                if (Math.abs(bocha.vx) < 0.1 && Math.abs(bocha.vy) < 0.1) {
+                    bochasState = 'score';
+                    calculateScore();
+                }
+            }
+        }
+
+        function calculateScore() {
+            const dist = Math.hypot(bocha.x - bochin.x, bocha.y - bochin.y);
+            let pts = 0;
+            if (dist < 30) pts = 100;
+            else if (dist < 60) pts = 50;
+            else if (dist < 100) pts = 10;
+            
+            bochasScore += pts;
+            bochasShots++;
+            document.getElementById('bochas-score').innerText = bochasScore;
+            document.getElementById('bochas-shots').innerText = bochasShots;
+
+            if (bochasShots >= 3) {
+                bochasState = 'over';
+                document.getElementById('bochas-final-score').innerText = bochasScore;
+                bochasGameOverScreen.classList.remove('hidden');
+                powerBarContainer.classList.add('hidden');
+            } else {
+                setTimeout(resetBocha, 1000);
+            }
+        }
+
+        function bochasLoop() {
+            if(bochasState === 'over') return;
+            updateBochas();
+            drawBochas();
+            bochasAnimId = requestAnimationFrame(bochasLoop);
+        }
+
+        bochasCanvas.addEventListener('mousedown', (e) => {
+            if (bochasState === 'aim') {
+                const rect = bochasCanvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                const angle = Math.atan2(mouseY - bocha.y, mouseX - bocha.x);
+                
+                const speed = (bochasPower / 100) * 15;
+                bocha.vx = Math.cos(angle) * speed;
+                bocha.vy = Math.sin(angle) * speed;
+                
+                bochasState = 'rolling';
+                powerBarContainer.classList.add('hidden');
+            }
+        });
         
-        // Carga inicial
-        mostrarFarmacias();
+        bochasCanvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (bochasState === 'aim') {
+                const rect = bochasCanvas.getBoundingClientRect();
+                const touch = e.touches[0];
+                const mouseX = touch.clientX - rect.left;
+                const mouseY = touch.clientY - rect.top;
+                const angle = Math.atan2(mouseY - bocha.y, mouseX - bocha.x);
+                
+                const speed = (bochasPower / 100) * 15;
+                bocha.vx = Math.cos(angle) * speed;
+                bocha.vy = Math.sin(angle) * speed;
+                
+                bochasState = 'rolling';
+                powerBarContainer.classList.add('hidden');
+            }
+        });
+
+        btnStartBochas.addEventListener('click', initBochas);
+        btnRestartBochas.addEventListener('click', initBochas);
+
+        // ----------------------------------------------------------------------
+        // JUEGO 2: FLAPPY BOCHÍN
+        // ----------------------------------------------------------------------
+        const flapCanvas = document.getElementById('flappy-canvas');
+        const flapCtx = flapCanvas.getContext('2d');
+        const flapStartScreen = document.getElementById('flappy-start-screen');
+        const flapGameOverScreen = document.getElementById('flappy-gameover');
+        const btnStartFlappy = document.getElementById('btn-start-flappy');
+        const btnRestartFlappy = document.getElementById('btn-restart-flappy');
+        const flapScoreDisplay = document.getElementById('flappy-score-display');
+        const flapScoreText = flapScoreDisplay.querySelector('span');
+
+        let flapAnimId;
+        let flapState = 'start'; // start, playing, over
+        let bird = { x: 50, y: 250, velocity: 0, gravity: 0.4, jump: -6, size: 20 };
+        let pipes = [];
+        let flapFrames = 0;
+        let flapScore = 0;
+        let flapBest = localStorage.getItem('flappyBest') || 0;
+
+        const imgBochinVuela = new Image();
+        imgBochinVuela.src = 'bochin-index_2.png';
+
+        function initFlappy() {
+            bird.y = 250;
+            bird.velocity = 0;
+            pipes = [];
+            flapFrames = 0;
+            flapScore = 0;
+            flapScoreText.innerText = '0';
+            flapState = 'playing';
+            
+            flapStartScreen.classList.add('hidden');
+            flapGameOverScreen.classList.add('hidden');
+            flapScoreDisplay.classList.remove('hidden');
+            
+            flapLoop();
+        }
+
+        function drawFlappy() {
+            // Fondo animado simple
+            flapCtx.fillStyle = '#7dd3fc'; // Cielo
+            flapCtx.fillRect(0, 0, flapCanvas.width, flapCanvas.height);
+            
+            // Nubes
+            flapCtx.fillStyle = 'rgba(255,255,255,0.5)';
+            flapCtx.beginPath();
+            flapCtx.arc((flapFrames/2)%450 - 50, 100, 30, 0, Math.PI*2);
+            flapCtx.arc((flapFrames/2)%450 - 20, 100, 40, 0, Math.PI*2);
+            flapCtx.arc((flapFrames/2)%450 + 20, 100, 30, 0, Math.PI*2);
+            flapCtx.fill();
+
+            // Dibujar Postes (simulando banderas/obstáculos)
+            pipes.forEach(p => {
+                flapCtx.fillStyle = '#1e3a8a'; // Azul oscuro institucional
+                flapCtx.fillRect(p.x, 0, p.w, p.top);
+                flapCtx.fillRect(p.x, flapCanvas.height - p.bottom, p.w, p.bottom);
+                
+                // Detalle celeste en los postes
+                flapCtx.fillStyle = '#22d3ee';
+                flapCtx.fillRect(p.x-2, p.top-10, p.w+4, 10);
+                flapCtx.fillRect(p.x-2, flapCanvas.height - p.bottom, p.w+4, 10);
+            });
+
+            // Dibujar Bochín volando
+            if(imgBochinVuela.complete) {
+                flapCtx.save();
+                flapCtx.translate(bird.x, bird.y);
+                // Rotar ligeramente según la velocidad
+                let rotation = Math.min(Math.PI / 4, Math.max(-Math.PI / 4, (bird.velocity * 0.1)));
+                flapCtx.rotate(rotation);
+                flapCtx.drawImage(imgBochinVuela, -25, -25, 50, 50);
+                flapCtx.restore();
+            } else {
+                flapCtx.fillStyle = 'white';
+                flapCtx.beginPath();
+                flapCtx.arc(bird.x, bird.y, bird.size, 0, Math.PI*2);
+                flapCtx.fill();
+            }
+        }
+
+        function updateFlappy() {
+            bird.velocity += bird.gravity;
+            bird.y += bird.velocity;
+
+            // Generar Postes
+            if (flapFrames % 100 === 0) {
+                let gap = 130; // Espacio entre postes
+                let topH = Math.max(50, Math.random() * (flapCanvas.height - gap - 50));
+                pipes.push({
+                    x: flapCanvas.width,
+                    w: 40,
+                    top: topH,
+                    bottom: flapCanvas.height - (topH + gap),
+                    passed: false
+                });
+            }
+
+            // Mover y verificar postes
+            for (let i = 0; i < pipes.length; i++) {
+                let p = pipes[i];
+                p.x -= 3; // Velocidad del juego
+
+                // Colisiones
+                if (bird.x + bird.size > p.x && bird.x - bird.size < p.x + p.w) {
+                    if (bird.y - bird.size < p.top || bird.y + bird.size > flapCanvas.height - p.bottom) {
+                        gameOverFlappy();
+                    }
+                }
+
+                // Puntaje
+                if (p.x + p.w < bird.x && !p.passed) {
+                    flapScore++;
+                    flapScoreText.innerText = flapScore;
+                    p.passed = true;
+                }
+
+                // Eliminar postes viejos
+                if (p.x + p.w < 0) {
+                    pipes.shift();
+                    i--;
+                }
+            }
+
+            // Colisión suelo o techo
+            if (bird.y + bird.size >= flapCanvas.height || bird.y - bird.size <= 0) {
+                gameOverFlappy();
+            }
+
+            flapFrames++;
+        }
+
+        function gameOverFlappy() {
+            flapState = 'over';
+            flapScoreDisplay.classList.add('hidden');
+            document.getElementById('flappy-final-score').innerText = flapScore;
+            
+            if(flapScore > flapBest) {
+                flapBest = flapScore;
+                localStorage.setItem('flappyBest', flapBest);
+            }
+            document.getElementById('flappy-best-score').innerText = flapBest;
+            
+            flapGameOverScreen.classList.remove('hidden');
+        }
+
+        function flap() {
+            if (flapState === 'playing') {
+                bird.velocity = bird.jump;
+            }
+        }
+
+        function flapLoop() {
+            if(flapState === 'over') return;
+            updateFlappy();
+            drawFlappy();
+            flapAnimId = requestAnimationFrame(flapLoop);
+        }
+
+        flapCanvas.addEventListener('mousedown', flap);
+        flapCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); flap(); });
+        
+        btnStartFlappy.addEventListener('click', initFlappy);
+        btnRestartFlappy.addEventListener('click', initFlappy);
+
+        // Pre-render
+        drawBochas();
+        drawFlappy();
 
     </script>
 </body>
