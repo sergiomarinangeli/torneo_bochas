@@ -30,6 +30,7 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
             background-color: #87CEEB; /* Cielo por defecto */
             touch-action: none; /* Evitar scroll en canvas táctil */
+            -webkit-touch-callout: none;
         }
         
         canvas {
@@ -71,12 +72,13 @@
                 </div>
                 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-4 lg:space-x-6">
+                <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
                     <a href="#inicio" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
                     <a href="#sedes" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Sedes</a>
                     <a href="#cronograma" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Cronograma</a>
                     <a href="#comite" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Comité</a>
                     <a href="#conducta" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Reglamento</a>
+                    <a href="#farmacias" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Farmacias</a>
                     <a href="#juegos" class="text-cyan-300 hover:bg-purple-800 hover:text-white px-2 py-2 rounded-md text-sm font-bold transition-colors flex items-center gap-1"><i data-lucide="gamepad-2" class="h-4 w-4"></i> Juegos</a>
                     <a href="#evaluacion" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Evaluación</a>
                 </div>
@@ -98,6 +100,7 @@
                 <a href="#cronograma" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Cronograma</a>
                 <a href="#comite" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Comité Organizador</a>
                 <a href="#conducta" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Código de Conducta</a>
+                <a href="#farmacias" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Farmacias de Turno</a>
                 <a href="#juegos" class="mobile-link text-cyan-300 hover:bg-purple-700 flex items-center gap-2 px-3 py-4 rounded-md text-base font-bold border-b border-purple-700/50"><i data-lucide="gamepad-2" class="h-5 w-5"></i> Zona de Juegos</a>
                 <a href="#evaluacion" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium">Evaluaciones</a>
             </div>
@@ -165,24 +168,6 @@
                 <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']" id="forecast-container">
                     <!-- Cards de pronóstico (Inyectadas por JS) -->
                 </div>
-            </div>
-        </section>
-
-        <!-- Bienvenida -->
-        <section class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border-t-8 border-cyan-400 relative">
-            <div class="absolute -top-10 right-10 bg-cyan-400 text-purple-900 p-4 rounded-full shadow-lg">
-                <i data-lucide="info" class="h-10 w-10"></i>
-            </div>
-            <h2 class="text-3xl font-bold text-purple-900 mb-6">Hola</h2>
-            <div class="text-lg text-slate-600 space-y-4 leading-relaxed">
-                <p>Es un honor para nosotros darles la más cálida bienvenida a <strong>Santa Rosa, La Pampa</strong>, en esta emocionante edición del Torneo Nacional de Bochas Unificado, que se celebrará durante los días <strong>5, 6 y 7 de Junio</strong>.</p>
-                <p>Este evento, que reúne a deportistas de todo el país, no solo es una muestra de esfuerzo y dedicación, sino también de superación personal y colectiva. Hoy, más que nunca, celebramos el deporte como un espacio de inclusión, respeto y empoderamiento.</p>
-                <p>A través de este torneo, buscamos visibilizar el talento, la perseverancia y la pasión de cada uno de ustedes, quienes, con su ejemplo, nos inspiran a seguir construyendo una sociedad más justa y accesible para todos. A lo largo de estos tres días de competencia, veremos demostraciones de coraje y disciplina que no solo nos emocionarán, sino que también nos enseñarán a valorar el esfuerzo por encima de todo.</p>
-                <p class="font-semibold text-purple-800 text-xl border-l-4 border-cyan-400 pl-4 py-2 bg-purple-50">
-                    Cada paso que den en esta pista, cada esfuerzo que realicen, es una victoria para todos nosotros.
-                </p>
-                <p>Queremos agradecer a todos los atletas, entrenadores, voluntarios, organizadores y patrocinadores por su dedicación y compromiso, sin los cuales este torneo no sería posible.</p>
-                <p>A todos ustedes les deseamos lo mejor en cada prueba, y que, más allá del resultado, este evento sea una oportunidad para disfrutar del deporte, forjar nuevas amistades y seguir creciendo como comunidad.</p>
             </div>
         </section>
 
@@ -281,7 +266,7 @@
                             <tr class="border-b hover:bg-slate-50 transition-colors">
                                 <td class="p-4 font-bold">Testeos</td>
                                 <td class="p-4">15:00 a 18:00 hs</td><td class="p-4">-</td><td class="p-4">-</td>
-                                <td class="p-4 font-medium"><a href="https://www.google.com/maps/search/?api=1&query=Complejo+Futbol+Nuevo+Stadium,+Wilde+352,+Santa+Rosa,+La+Pampa" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline">Fútbol Nuevo Stadium, calle Wilde 352</a></td>
+                                <td class="p-4 font-medium"><a href="https://www.google.com/maps/search/?api=1&query=Complejo+Futbol+Nuevo+Stadium,+Wilde+352,+Santa+Rosa,+La+Pampa" target="_blank" rel="noopener noreferrer" class="text-purple-700 hover:underline">Fútbol Nuevo Stadium, Wilde 352</a></td>
                             </tr>
                             <tr class="border-b hover:bg-slate-50 transition-colors">
                                 <td class="p-4 font-bold">Acto Apertura</td>
@@ -606,7 +591,7 @@
                         <h3 class="font-bold text-xl text-purple-900 flex items-center justify-center gap-2">
                             <i data-lucide="target" class="h-5 w-5 text-cyan-500"></i> Mini Bochas
                         </h3>
-                        <p class="text-xs text-slate-500 mt-1">Apunta, mantén presionado para dar fuerza y suelta para lanzar la bocha azul hacia Bochín. ¡Intenta quedar lo más cerca posible!</p>
+                        <p class="text-xs text-slate-500 mt-1">Apunta, presiona la pantalla en el momento justo para elegir la fuerza y lanza la bocha hacia Bochín. ¡Intenta quedar lo más cerca posible!</p>
                     </div>
                     <div class="game-canvas-container border-2 border-slate-200 rounded-b-2xl shadow-xl h-[500px]" id="bochas-container" style="background-color: #e2e8f0; background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
                         <div id="bochas-start-screen" class="game-overlay rounded-b-2xl">
@@ -1276,14 +1261,14 @@
 
         function updateBochas() {
             if (bochasState === 'aim') {
-                bochasPower += 2 * bochasPowerDir;
+                bochasPower += 1.2 * bochasPowerDir; // Reducida la velocidad de la barra para facilitar
                 if (bochasPower > 100 || bochasPower < 0) bochasPowerDir *= -1;
                 powerBar.style.width = bochasPower + '%';
             } else if (bochasState === 'rolling') {
                 bocha.x += bocha.vx;
                 bocha.y += bocha.vy;
-                bocha.vx *= 0.98; 
-                bocha.vy *= 0.98;
+                bocha.vx *= 0.985; // Menor fricción, rueda más lejos
+                bocha.vy *= 0.985;
 
                 if (bocha.x - bocha.radius < 0 || bocha.x + bocha.radius > 400) bocha.vx *= -1;
                 if (bocha.y - bocha.radius < 0 || bocha.y + bocha.radius > 500) bocha.vy *= -1;
@@ -1298,9 +1283,10 @@
         function calculateScore() {
             const dist = Math.hypot(bocha.x - bochin.x, bocha.y - bochin.y);
             let pts = 0;
-            if (dist < 30) pts = 100;
-            else if (dist < 60) pts = 50;
-            else if (dist < 100) pts = 10;
+            // Radios de puntuación aumentados para que sea más fácil sumar
+            if (dist < 40) pts = 100;
+            else if (dist < 80) pts = 50;
+            else if (dist < 120) pts = 10;
             
             bochasScore += pts;
             bochasShots++;
@@ -1334,7 +1320,7 @@
                 const mouseY = (clientY - rect.top) * scaleY;
                 const angle = Math.atan2(mouseY - bocha.y, mouseX - bocha.x);
                 
-                const speed = (bochasPower / 100) * 15;
+                const speed = (bochasPower / 100) * 12; // Velocidad ajustada
                 bocha.vx = Math.cos(angle) * speed;
                 bocha.vy = Math.sin(angle) * speed;
                 
@@ -1346,13 +1332,20 @@
         if(bochasCanvas) {
             bochasCanvas.addEventListener('mousedown', (e) => handleBochasInput(e.clientX, e.clientY));
             bochasCanvas.addEventListener('touchstart', (e) => {
-                if(e.cancelable) e.preventDefault();
+                e.preventDefault(); // Previene que el navegador interfiera con el toque
                 handleBochasInput(e.touches[0].clientX, e.touches[0].clientY);
             }, { passive: false });
         }
 
-        if(btnStartBochas) btnStartBochas.addEventListener('click', initBochas);
-        if(btnRestartBochas) btnRestartBochas.addEventListener('click', initBochas);
+        // Asignación dual (clic y táctil) para botones
+        if(btnStartBochas) {
+            btnStartBochas.addEventListener('click', initBochas);
+            btnStartBochas.addEventListener('touchstart', (e) => { e.preventDefault(); initBochas(); }, {passive: false});
+        }
+        if(btnRestartBochas) {
+            btnRestartBochas.addEventListener('click', initBochas);
+            btnRestartBochas.addEventListener('touchstart', (e) => { e.preventDefault(); initBochas(); }, {passive: false});
+        }
 
         // ----------------------------------------------------------------------
         // JUEGO 2: FLAPPY BOCHÍN
@@ -1368,7 +1361,8 @@
 
         let flapAnimId;
         let flapState = 'start'; 
-        let bird = { x: 50, y: 250, velocity: 0, gravity: 0.4, jump: -6, size: 20 };
+        // Gravedad reducida (0.3) y salto más suave (-5)
+        let bird = { x: 50, y: 250, velocity: 0, gravity: 0.3, jump: -5, size: 20 };
         let pipes = [];
         let flapFrames = 0;
         let flapScore = 0;
@@ -1435,8 +1429,8 @@
             bird.velocity += bird.gravity;
             bird.y += bird.velocity;
 
-            if (flapFrames % 100 === 0) {
-                let gap = 130; 
+            if (flapFrames % 120 === 0) { // Intervalo ajustado a la nueva velocidad
+                let gap = 150; // Hueco más grande para que sea más fácil (antes 130)
                 let topH = Math.max(50, Math.random() * (flapCanvas.height - gap - 50));
                 pipes.push({
                     x: flapCanvas.width,
@@ -1449,7 +1443,7 @@
 
             for (let i = 0; i < pipes.length; i++) {
                 let p = pipes[i];
-                p.x -= 3; 
+                p.x -= 2; // Velocidad de los obstáculos más lenta (antes 3)
 
                 if (bird.x + bird.size > p.x && bird.x - bird.size < p.x + p.w) {
                     if (bird.y - bird.size < p.top || bird.y + bird.size > flapCanvas.height - p.bottom) {
@@ -1506,13 +1500,19 @@
         if(flapCanvas) {
             flapCanvas.addEventListener('mousedown', flap);
             flapCanvas.addEventListener('touchstart', (e) => { 
-                if(e.cancelable) e.preventDefault(); 
+                e.preventDefault(); 
                 flap(); 
             }, { passive: false });
         }
         
-        if(btnStartFlappy) btnStartFlappy.addEventListener('click', initFlappy);
-        if(btnRestartFlappy) btnRestartFlappy.addEventListener('click', initFlappy);
+        if(btnStartFlappy) {
+            btnStartFlappy.addEventListener('click', initFlappy);
+            btnStartFlappy.addEventListener('touchstart', (e) => { e.preventDefault(); initFlappy(); }, {passive: false});
+        }
+        if(btnRestartFlappy) {
+            btnRestartFlappy.addEventListener('click', initFlappy);
+            btnRestartFlappy.addEventListener('touchstart', (e) => { e.preventDefault(); initFlappy(); }, {passive: false});
+        }
 
         // Pre-render inicial
         drawBochas();
