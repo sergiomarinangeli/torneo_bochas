@@ -53,8 +53,6 @@
             text-align: center;
             z-index: 10;
         }
-
-        .hidden { display: none !important; }
         
         /* Ocultar scrollbar en contenedor de juegos si es muy ancho */
         .games-scroll::-webkit-scrollbar { display: none; }
@@ -118,7 +116,7 @@
                 Cuaderno de Bienvenida • 5, 6 y 7 de Junio • Santa Rosa, La Pampa
             </p>
             <div class="flex justify-center mt-8">
-                <img src="bochin-index_2.png" alt="Bochín - Mascota Oficial" class="h-48 md:h-64 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300" />
+                <img src="bochin-index.png" alt="Bochín - Mascota Oficial" class="h-48 md:h-64 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300" />
             </div>
         </div>
     </section>
@@ -137,6 +135,38 @@
     </div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <!-- Widget del Clima (COMPACTO) -->
+        <section id="clima" class="bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl shadow-lg p-4 md:p-6 text-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+                <i data-lucide="cloud-sun" class="w-40 h-40"></i>
+            </div>
+            
+            <div class="relative z-10 flex flex-col md:flex-row gap-4 items-center justify-between">
+                <!-- Clima Actual -->
+                <div class="flex flex-row items-center gap-4 w-full md:w-auto justify-center md:justify-start">
+                    <div id="current-weather-icon" class="bg-white/20 p-3 rounded-full backdrop-blur-sm shadow-inner shrink-0">
+                        <i data-lucide="loader-2" class="h-8 w-8 animate-spin"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold opacity-90 leading-tight">Santa Rosa, La Pampa</h3>
+                        <div class="flex items-baseline gap-1 mt-0.5">
+                            <span id="current-temp" class="text-3xl md:text-4xl font-extrabold tracking-tighter">--</span>
+                            <span class="text-xl font-bold">°C</span>
+                            <span id="current-desc" class="text-sm font-medium ml-2 opacity-90">Obteniendo...</span>
+                        </div>
+                        <p class="text-[9px] uppercase tracking-wider opacity-75 mt-1 font-semibold flex items-center gap-1">
+                            <i data-lucide="info" class="h-3 w-3"></i> Fuente: SMN
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pronóstico (5 días) -->
+                <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']" id="forecast-container">
+                    <!-- Cards de pronóstico (Inyectadas por JS) -->
+                </div>
+            </div>
+        </section>
 
         <!-- Bienvenida -->
         <section class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border-t-8 border-cyan-400 relative">
@@ -615,7 +645,7 @@
                     <div class="game-canvas-container border-2 border-slate-200 rounded-b-2xl shadow-xl h-[500px]" id="flappy-container">
                         
                         <div id="flappy-start-screen" class="game-overlay rounded-b-2xl">
-                            <img src="bochin-index_2.png" alt="Bochín Corriendo" class="h-24 w-auto mb-4 drop-shadow-lg">
+                            <img src="bochin-index.png" alt="Bochín Corriendo" class="h-24 w-auto mb-4 drop-shadow-lg">
                             <h4 class="text-2xl font-bold text-cyan-300 mb-2">Flappy Bochín</h4>
                             <button id="btn-start-flappy" class="bg-cyan-500 hover:bg-cyan-400 text-purple-950 font-bold py-2 px-6 rounded-full mt-4 transition-transform hover:scale-105 active:scale-95 shadow-lg">Jugar Ahora</button>
                         </div>
@@ -947,7 +977,7 @@
         <div id="agent-widget" class="widget-enter bg-white w-72 md:w-80 rounded-2xl shadow-2xl border border-slate-200 overflow-hidden mb-4 transition-all duration-300 ease-out origin-bottom-right">
             <!-- Encabezado de la Tarjeta -->
             <div class="bg-cyan-500 p-4 text-purple-900 flex items-center gap-3">
-                <img src="bochin-index_2.png" class="h-12 w-12 bg-white rounded-full object-cover p-1 shadow-sm" alt="Bochín">
+                <img src="bochin-index.png" class="h-12 w-12 bg-white rounded-full object-cover p-1 shadow-sm" alt="Bochín">
                 <div>
                     <h3 class="font-bold text-lg leading-tight">Bochín Virtual</h3>
                     <p class="text-xs font-medium opacity-80">Asistente de Voz IA</p>
@@ -965,7 +995,7 @@
 
         <!-- Botón Flotante -->
         <button id="agent-btn" class="bg-cyan-500 hover:bg-cyan-400 p-1 md:p-1.5 rounded-full shadow-[0_10px_25px_rgba(6,182,212,0.5)] transition-all duration-300 hover:scale-110 z-50 flex items-center justify-center border-4 border-white">
-            <img src="bochin-index_2.png" id="agent-avatar" class="h-12 w-12 md:h-14 md:w-14 object-cover object-top rounded-full" alt="Hablá con Bochín">
+            <img src="bochin-index.png" id="agent-avatar" class="h-12 w-12 md:h-14 md:w-14 object-cover object-top rounded-full" alt="Hablá con Bochín">
             <i data-lucide="x" id="agent-close-icon" class="h-10 w-10 md:h-12 md:w-12 text-white hidden m-1"></i>
         </button>
     </div>
@@ -1060,9 +1090,14 @@
                 const getW = (code) => weatherMap[code] || { icon: 'cloud', text: 'Nublado' };
 
                 const currentW = getW(data.current.weather_code);
-                document.getElementById('current-temp').innerText = Math.round(data.current.temperature_2m);
-                document.getElementById('current-desc').innerText = currentW.text;
-                document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="${currentW.icon}" class="h-8 w-8 md:h-10 md:w-10 text-yellow-300 drop-shadow-md"></i>`;
+                const currentTempEl = document.getElementById('current-temp');
+                if(currentTempEl) currentTempEl.innerText = Math.round(data.current.temperature_2m);
+                
+                const currentDescEl = document.getElementById('current-desc');
+                if(currentDescEl) currentDescEl.innerText = currentW.text;
+                
+                const weatherIconEl = document.getElementById('current-weather-icon');
+                if(weatherIconEl) weatherIconEl.innerHTML = `<i data-lucide="${currentW.icon}" class="h-8 w-8 md:h-10 md:w-10 text-yellow-300 drop-shadow-md"></i>`;
 
                 const forecastContainer = document.getElementById('forecast-container');
                 let forecastHTML = '';
@@ -1089,13 +1124,16 @@
                         </div>
                     `;
                 }
-                forecastContainer.innerHTML = forecastHTML;
+                if(forecastContainer) forecastContainer.innerHTML = forecastHTML;
                 lucide.createIcons();
 
             } catch (error) {
                 console.error('Error al cargar clima:', error);
-                document.getElementById('current-desc').innerText = "No disponible";
-                document.getElementById('current-weather-icon').innerHTML = `<i data-lucide="cloud-off" class="h-8 w-8 opacity-50"></i>`;
+                const currentDescEl = document.getElementById('current-desc');
+                if(currentDescEl) currentDescEl.innerText = "No disponible";
+                
+                const weatherIconEl = document.getElementById('current-weather-icon');
+                if(weatherIconEl) weatherIconEl.innerHTML = `<i data-lucide="cloud-off" class="h-8 w-8 opacity-50"></i>`;
                 lucide.createIcons();
             }
         }
@@ -1129,10 +1167,11 @@
         };
 
         function mostrarFarmacias() {
-            const fechaInput = document.getElementById('fecha-farmacia').value;
+            const fechaInput = document.getElementById('fecha-farmacia');
+            if(!fechaInput) return;
             const contenedor = document.getElementById('contenedor-farmacias');
             contenedor.innerHTML = '';
-            const grupo = calendarioFarmacias[fechaInput];
+            const grupo = calendarioFarmacias[fechaInput.value];
             if (!grupo) {
                 contenedor.innerHTML = `<div class="col-span-full text-center py-8 bg-slate-50 rounded-xl border border-dashed border-slate-300"><i data-lucide="calendar-x" class="h-10 w-10 text-slate-400 mx-auto mb-3"></i><p class="text-slate-600 font-medium">No hay registros de turnos para esta fecha.</p><p class="text-sm text-slate-500">Actualmente solo hay datos cargados para Junio 2026.</p></div>`;
                 lucide.createIcons();
@@ -1149,14 +1188,18 @@
             contenedor.innerHTML = html;
             lucide.createIcons();
         }
-        document.getElementById('fecha-farmacia').addEventListener('change', mostrarFarmacias);
-        mostrarFarmacias();
+        
+        const inputFecha = document.getElementById('fecha-farmacia');
+        if(inputFecha) {
+            inputFecha.addEventListener('change', mostrarFarmacias);
+            mostrarFarmacias();
+        }
 
         // ----------------------------------------------------------------------
         // JUEGO 1: MINI BOCHAS
         // ----------------------------------------------------------------------
         const bochasCanvas = document.getElementById('bochas-canvas');
-        const bochasCtx = bochasCanvas.getContext('2d');
+        const bochasCtx = bochasCanvas ? bochasCanvas.getContext('2d') : null;
         const bochasStartScreen = document.getElementById('bochas-start-screen');
         const bochasGameOverScreen = document.getElementById('bochas-gameover');
         const btnStartBochas = document.getElementById('btn-start-bochas');
@@ -1166,7 +1209,7 @@
         const bochasUi = document.getElementById('bochas-ui');
         
         let bochasAnimId;
-        let bochasState = 'start'; // start, aim, rolling, over
+        let bochasState = 'start'; 
         let bocha = { x: 200, y: 450, radius: 15, vx: 0, vy: 0 };
         let bochin = { x: 200, y: 100, radius: 10 };
         let bochasPower = 0;
@@ -1174,7 +1217,6 @@
         let bochasShots = 0;
         let bochasScore = 0;
 
-        // Cargar imagen de Bochín para el objetivo
         const imgBochinObjeto = new Image();
         imgBochinObjeto.src = 'bochín 2.png';
 
@@ -1189,6 +1231,7 @@
             bochasUi.classList.remove('hidden');
             powerBarContainer.classList.remove('hidden');
             resetBocha();
+            cancelAnimationFrame(bochasAnimId);
             bochasLoop();
         }
 
@@ -1205,10 +1248,10 @@
         }
 
         function drawBochas() {
+            if(!bochasCtx) return;
             bochasCtx.clearRect(0, 0, bochasCanvas.width, bochasCanvas.height);
             
-            // Dibujar Bochín (Objetivo)
-            if(imgBochinObjeto.complete) {
+            if(imgBochinObjeto.complete && imgBochinObjeto.naturalWidth !== 0) {
                 bochasCtx.drawImage(imgBochinObjeto, bochin.x - 20, bochin.y - 20, 40, 40);
             } else {
                 bochasCtx.beginPath();
@@ -1218,10 +1261,9 @@
                 bochasCtx.stroke();
             }
 
-            // Dibujar Bocha Jugador
             bochasCtx.beginPath();
             bochasCtx.arc(bocha.x, bocha.y, bocha.radius, 0, Math.PI * 2);
-            bochasCtx.fillStyle = '#0ea5e9'; // cyan-500
+            bochasCtx.fillStyle = '#0ea5e9';
             bochasCtx.fill();
             bochasCtx.strokeStyle = '#0284c7';
             bochasCtx.lineWidth = 2;
@@ -1240,10 +1282,9 @@
             } else if (bochasState === 'rolling') {
                 bocha.x += bocha.vx;
                 bocha.y += bocha.vy;
-                bocha.vx *= 0.98; // fricción
+                bocha.vx *= 0.98; 
                 bocha.vy *= 0.98;
 
-                // Rebote bordes
                 if (bocha.x - bocha.radius < 0 || bocha.x + bocha.radius > 400) bocha.vx *= -1;
                 if (bocha.y - bocha.radius < 0 || bocha.y + bocha.radius > 500) bocha.vy *= -1;
 
@@ -1283,11 +1324,14 @@
             bochasAnimId = requestAnimationFrame(bochasLoop);
         }
 
-        bochasCanvas.addEventListener('mousedown', (e) => {
+        function handleBochasInput(clientX, clientY) {
             if (bochasState === 'aim') {
                 const rect = bochasCanvas.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left;
-                const mouseY = e.clientY - rect.top;
+                const scaleX = bochasCanvas.width / rect.width;
+                const scaleY = bochasCanvas.height / rect.height;
+                
+                const mouseX = (clientX - rect.left) * scaleX;
+                const mouseY = (clientY - rect.top) * scaleY;
                 const angle = Math.atan2(mouseY - bocha.y, mouseX - bocha.x);
                 
                 const speed = (bochasPower / 100) * 15;
@@ -1297,43 +1341,33 @@
                 bochasState = 'rolling';
                 powerBarContainer.classList.add('hidden');
             }
-        });
-        
-        bochasCanvas.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            if (bochasState === 'aim') {
-                const rect = bochasCanvas.getBoundingClientRect();
-                const touch = e.touches[0];
-                const mouseX = touch.clientX - rect.left;
-                const mouseY = touch.clientY - rect.top;
-                const angle = Math.atan2(mouseY - bocha.y, mouseX - bocha.x);
-                
-                const speed = (bochasPower / 100) * 15;
-                bocha.vx = Math.cos(angle) * speed;
-                bocha.vy = Math.sin(angle) * speed;
-                
-                bochasState = 'rolling';
-                powerBarContainer.classList.add('hidden');
-            }
-        });
+        }
 
-        btnStartBochas.addEventListener('click', initBochas);
-        btnRestartBochas.addEventListener('click', initBochas);
+        if(bochasCanvas) {
+            bochasCanvas.addEventListener('mousedown', (e) => handleBochasInput(e.clientX, e.clientY));
+            bochasCanvas.addEventListener('touchstart', (e) => {
+                if(e.cancelable) e.preventDefault();
+                handleBochasInput(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: false });
+        }
+
+        if(btnStartBochas) btnStartBochas.addEventListener('click', initBochas);
+        if(btnRestartBochas) btnRestartBochas.addEventListener('click', initBochas);
 
         // ----------------------------------------------------------------------
         // JUEGO 2: FLAPPY BOCHÍN
         // ----------------------------------------------------------------------
         const flapCanvas = document.getElementById('flappy-canvas');
-        const flapCtx = flapCanvas.getContext('2d');
+        const flapCtx = flapCanvas ? flapCanvas.getContext('2d') : null;
         const flapStartScreen = document.getElementById('flappy-start-screen');
         const flapGameOverScreen = document.getElementById('flappy-gameover');
         const btnStartFlappy = document.getElementById('btn-start-flappy');
         const btnRestartFlappy = document.getElementById('btn-restart-flappy');
         const flapScoreDisplay = document.getElementById('flappy-score-display');
-        const flapScoreText = flapScoreDisplay.querySelector('span');
+        const flapScoreText = flapScoreDisplay ? flapScoreDisplay.querySelector('span') : null;
 
         let flapAnimId;
-        let flapState = 'start'; // start, playing, over
+        let flapState = 'start'; 
         let bird = { x: 50, y: 250, velocity: 0, gravity: 0.4, jump: -6, size: 20 };
         let pipes = [];
         let flapFrames = 0;
@@ -1341,7 +1375,7 @@
         let flapBest = localStorage.getItem('flappyBest') || 0;
 
         const imgBochinVuela = new Image();
-        imgBochinVuela.src = 'bochin-index_2.png';
+        imgBochinVuela.src = 'bochin-index.png';
 
         function initFlappy() {
             bird.y = 250;
@@ -1349,22 +1383,22 @@
             pipes = [];
             flapFrames = 0;
             flapScore = 0;
-            flapScoreText.innerText = '0';
+            if(flapScoreText) flapScoreText.innerText = '0';
             flapState = 'playing';
             
             flapStartScreen.classList.add('hidden');
             flapGameOverScreen.classList.add('hidden');
             flapScoreDisplay.classList.remove('hidden');
             
+            cancelAnimationFrame(flapAnimId);
             flapLoop();
         }
 
         function drawFlappy() {
-            // Fondo animado simple
-            flapCtx.fillStyle = '#7dd3fc'; // Cielo
+            if(!flapCtx) return;
+            flapCtx.fillStyle = '#7dd3fc'; 
             flapCtx.fillRect(0, 0, flapCanvas.width, flapCanvas.height);
             
-            // Nubes
             flapCtx.fillStyle = 'rgba(255,255,255,0.5)';
             flapCtx.beginPath();
             flapCtx.arc((flapFrames/2)%450 - 50, 100, 30, 0, Math.PI*2);
@@ -1372,23 +1406,19 @@
             flapCtx.arc((flapFrames/2)%450 + 20, 100, 30, 0, Math.PI*2);
             flapCtx.fill();
 
-            // Dibujar Postes (simulando banderas/obstáculos)
             pipes.forEach(p => {
-                flapCtx.fillStyle = '#1e3a8a'; // Azul oscuro institucional
+                flapCtx.fillStyle = '#1e3a8a'; 
                 flapCtx.fillRect(p.x, 0, p.w, p.top);
                 flapCtx.fillRect(p.x, flapCanvas.height - p.bottom, p.w, p.bottom);
                 
-                // Detalle celeste en los postes
                 flapCtx.fillStyle = '#22d3ee';
                 flapCtx.fillRect(p.x-2, p.top-10, p.w+4, 10);
                 flapCtx.fillRect(p.x-2, flapCanvas.height - p.bottom, p.w+4, 10);
             });
 
-            // Dibujar Bochín volando
-            if(imgBochinVuela.complete) {
+            if(imgBochinVuela.complete && imgBochinVuela.naturalWidth !== 0) {
                 flapCtx.save();
                 flapCtx.translate(bird.x, bird.y);
-                // Rotar ligeramente según la velocidad
                 let rotation = Math.min(Math.PI / 4, Math.max(-Math.PI / 4, (bird.velocity * 0.1)));
                 flapCtx.rotate(rotation);
                 flapCtx.drawImage(imgBochinVuela, -25, -25, 50, 50);
@@ -1405,9 +1435,8 @@
             bird.velocity += bird.gravity;
             bird.y += bird.velocity;
 
-            // Generar Postes
             if (flapFrames % 100 === 0) {
-                let gap = 130; // Espacio entre postes
+                let gap = 130; 
                 let topH = Math.max(50, Math.random() * (flapCanvas.height - gap - 50));
                 pipes.push({
                     x: flapCanvas.width,
@@ -1418,33 +1447,28 @@
                 });
             }
 
-            // Mover y verificar postes
             for (let i = 0; i < pipes.length; i++) {
                 let p = pipes[i];
-                p.x -= 3; // Velocidad del juego
+                p.x -= 3; 
 
-                // Colisiones
                 if (bird.x + bird.size > p.x && bird.x - bird.size < p.x + p.w) {
                     if (bird.y - bird.size < p.top || bird.y + bird.size > flapCanvas.height - p.bottom) {
                         gameOverFlappy();
                     }
                 }
 
-                // Puntaje
                 if (p.x + p.w < bird.x && !p.passed) {
                     flapScore++;
-                    flapScoreText.innerText = flapScore;
+                    if(flapScoreText) flapScoreText.innerText = flapScore;
                     p.passed = true;
                 }
 
-                // Eliminar postes viejos
                 if (p.x + p.w < 0) {
                     pipes.shift();
                     i--;
                 }
             }
 
-            // Colisión suelo o techo
             if (bird.y + bird.size >= flapCanvas.height || bird.y - bird.size <= 0) {
                 gameOverFlappy();
             }
@@ -1479,13 +1503,18 @@
             flapAnimId = requestAnimationFrame(flapLoop);
         }
 
-        flapCanvas.addEventListener('mousedown', flap);
-        flapCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); flap(); });
+        if(flapCanvas) {
+            flapCanvas.addEventListener('mousedown', flap);
+            flapCanvas.addEventListener('touchstart', (e) => { 
+                if(e.cancelable) e.preventDefault(); 
+                flap(); 
+            }, { passive: false });
+        }
         
-        btnStartFlappy.addEventListener('click', initFlappy);
-        btnRestartFlappy.addEventListener('click', initFlappy);
+        if(btnStartFlappy) btnStartFlappy.addEventListener('click', initFlappy);
+        if(btnRestartFlappy) btnRestartFlappy.addEventListener('click', initFlappy);
 
-        // Pre-render
+        // Pre-render inicial
         drawBochas();
         drawFlappy();
 
