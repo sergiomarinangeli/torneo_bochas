@@ -76,6 +76,7 @@
                     <a href="#inicio" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Inicio</a>
                     <a href="#sedes" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Sedes</a>
                     <a href="#cronograma" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Cronograma</a>
+                    <a href="#fixture" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Fixture</a>
                     <a href="#comite" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Comité</a>
                     <a href="#conducta" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Reglamento</a>
                     <a href="#farmacias" class="text-white hover:bg-purple-800 hover:text-cyan-300 px-2 py-2 rounded-md text-sm font-medium transition-colors">Farmacias</a>
@@ -98,6 +99,7 @@
                 <a href="#inicio" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Inicio</a>
                 <a href="#sedes" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Sedes y Acreditación</a>
                 <a href="#cronograma" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Cronograma</a>
+                <a href="#fixture" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Fixture Deportivo</a>
                 <a href="#comite" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Comité Organizador</a>
                 <a href="#conducta" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Código de Conducta</a>
                 <a href="#farmacias" class="mobile-link text-white hover:bg-purple-700 block px-3 py-4 rounded-md text-base font-medium border-b border-purple-700/50">Farmacias de Turno</a>
@@ -168,6 +170,24 @@
                 <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']" id="forecast-container">
                     <!-- Cards de pronóstico (Inyectadas por JS) -->
                 </div>
+            </div>
+        </section>
+
+        <!-- Bienvenida -->
+        <section class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border-t-8 border-cyan-400 relative">
+            <div class="absolute -top-10 right-10 bg-cyan-400 text-purple-900 p-4 rounded-full shadow-lg">
+                <i data-lucide="info" class="h-10 w-10"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-purple-900 mb-6">Hola</h2>
+            <div class="text-lg text-slate-600 space-y-4 leading-relaxed">
+                <p>Es un honor para nosotros darles la más cálida bienvenida a <strong>Santa Rosa, La Pampa</strong>, en esta emocionante edición del Torneo Nacional de Bochas Unificado, que se celebrará durante los días <strong>5, 6 y 7 de Junio</strong>.</p>
+                <p>Este evento, que reúne a deportistas de todo el país, no solo es una muestra de esfuerzo y dedicación, sino también de superación personal y colectiva. Hoy, más que nunca, celebramos el deporte como un espacio de inclusión, respeto y empoderamiento.</p>
+                <p>A través de este torneo, buscamos visibilizar el talento, la perseverancia y la pasión de cada uno de ustedes, quienes, con su ejemplo, nos inspiran a seguir construyendo una sociedad más justa y accesible para todos. A lo largo de estos tres días de competencia, veremos demostraciones de coraje y disciplina que no solo nos emocionarán, sino que también nos enseñarán a valorar el esfuerzo por encima de todo.</p>
+                <p class="font-semibold text-purple-800 text-xl border-l-4 border-cyan-400 pl-4 py-2 bg-purple-50">
+                    Cada paso que den en esta pista, cada esfuerzo que realicen, es una victoria para todos nosotros.
+                </p>
+                <p>Queremos agradecer a todos los atletas, entrenadores, voluntarios, organizadores y patrocinadores por su dedicación y compromiso, sin los cuales este torneo no sería posible.</p>
+                <p>A todos ustedes les deseamos lo mejor en cada prueba, y que, más allá del resultado, este evento sea una oportunidad para disfrutar del deporte, forjar nuevas amistades y seguir creciendo como comunidad.</p>
             </div>
         </section>
 
@@ -424,6 +444,517 @@
                         <li class="flex justify-between items-center text-sm border-b border-black/5 pb-2"><span class="font-bold opacity-75">15:00</span><span class="font-semibold text-right">Retiro <span class="block text-xs font-normal mt-0.5"><span class="opacity-70">-</span></span></span></li>
                     </ul>
                 </div>
+            </div>
+        </section>
+
+        <!-- Fixture Deportivo -->
+        <section id="fixture">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="bg-indigo-500 p-3 rounded-xl shadow-md">
+                    <i data-lucide="layout-list" class="h-8 w-8 text-white"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-purple-900">Fixture Deportivo</h2>
+            </div>
+
+            <div class="bg-slate-100 rounded-3xl p-4 md:p-8 shadow-inner border-2 border-slate-200">
+                <!-- Pestañas (Tabs) -->
+                <div class="flex flex-wrap gap-2 mb-6 justify-center">
+                    <button id="tab-fixture-sab-manana" onclick="showFixture('fixture-sab-manana')" class="fixture-tab px-6 py-2 rounded-full font-bold transition-all bg-cyan-500 text-white shadow-md">Sáb 6 - Mañana</button>
+                    <button id="tab-fixture-sab-tarde" onclick="showFixture('fixture-sab-tarde')" class="fixture-tab px-6 py-2 rounded-full font-bold transition-all bg-slate-200 text-slate-600 hover:bg-slate-300">Sáb 6 - Tarde</button>
+                    <button id="tab-fixture-domingo" onclick="showFixture('fixture-domingo')" class="fixture-tab px-6 py-2 rounded-full font-bold transition-all bg-slate-200 text-slate-600 hover:bg-slate-300">Domingo 7 - Finales</button>
+                </div>
+
+                <!-- Panel Sábado Mañana -->
+                <div id="fixture-sab-manana" class="fixture-panel space-y-3">
+                    
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">09:00</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Gallo/Diaz</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">MZA<br><span class="text-xs font-normal text-slate-500">Castro/Mendez</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">LP1<br><span class="text-xs font-normal text-slate-500">Martinez/Sthempelet</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">LP1<br><span class="text-xs font-normal text-slate-500">Gomez/Gomez</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">09:15</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Orellana/Leiva</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SF<br><span class="text-xs font-normal text-slate-500">Cuesta/Ripodas</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">ER<br><span class="text-xs font-normal text-slate-500">Fernandez/Suhr</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SL<br><span class="text-xs font-normal text-slate-500">Morales/Quiroga</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">09:30</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Gallo/Diaz</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Orellana/Leiva</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">MZA<br><span class="text-xs font-normal text-slate-500">Martinez/Raggio</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SL<br><span class="text-xs font-normal text-slate-500">Arrieta/Rodriguez</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">10:45</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Gallo K</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SF<br><span class="text-xs font-normal text-slate-500">Cuesta F</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">ER<br><span class="text-xs font-normal text-slate-500">Fernandez D</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SL<br><span class="text-xs font-normal text-slate-500">Arrieta P</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">11:00</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Orellana V</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">MZA<br><span class="text-xs font-normal text-slate-500">Castro F</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">LP1<br><span class="text-xs font-normal text-slate-500">Gomez E</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">MZA<br><span class="text-xs font-normal text-slate-500">Martinez S</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">11:15</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Gallo K</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Orellana V</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SL<br><span class="text-xs font-normal text-slate-500">Morales R</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">LP1<br><span class="text-xs font-normal text-slate-500">Martinez L</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">11:30</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SF<br><span class="text-xs font-normal text-slate-500">Cuesta F</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">MZA<br><span class="text-xs font-normal text-slate-500">Castro F</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">ER<br><span class="text-xs font-normal text-slate-500">Fernandez D</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">LP1<br><span class="text-xs font-normal text-slate-500">Gomez E</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">11:45</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Gallo K</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">MZA<br><span class="text-xs font-normal text-slate-500">Castro F</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SL<br><span class="text-xs font-normal text-slate-500">Morales R</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SL<br><span class="text-xs font-normal text-slate-500">Arrieta P</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">12:00</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SF<br><span class="text-xs font-normal text-slate-500">Cuesta F</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">SE<br><span class="text-xs font-normal text-slate-500">Orellana V</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">LP1<br><span class="text-xs font-normal text-slate-500">Martinez L</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">MZA<br><span class="text-xs font-normal text-slate-500">Martinez S</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Panel Sábado Tarde -->
+                <div id="fixture-sab-tarde" class="fixture-panel hidden space-y-3">
+                    
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">15:00</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Entre Ríos<br><span class="text-xs font-normal text-slate-500">Fernandez</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">San Luis<br><span class="text-xs font-normal text-slate-500">Morales</span></span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">La Pampa 1<br><span class="text-xs font-normal text-slate-500">Martinez</span></span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">La Pampa 1<br><span class="text-xs font-normal text-slate-500">Gomez</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">15:20</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">San Luis</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Santa Fe</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Sgo del Estero</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Mendoza</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">15:40</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">La Pampa 2</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Entre Ríos</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Sgo del Estero</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">La Pampa 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">16:00</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">San Luis</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">La Pampa 2</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Mendoza</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">La Pampa 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">16:20</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Santa Fe</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Entre Ríos</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Sgo del Estero</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Mendoza</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">16:40</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Santa Fe</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">La Pampa 2</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Sgo del Estero</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">La Pampa 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">17:00</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">San Luis</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">Entre Ríos</span>
+                                </div>
+                            </div>
+                            <div class="p-4 opacity-50 bg-slate-50 flex items-center justify-center">
+                                <div class="text-sm font-bold text-slate-400 uppercase tracking-wider">- Sin partido asignado -</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Domingo -->
+                <div id="fixture-domingo" class="fixture-panel hidden space-y-3">
+                    
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">09:00</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">1° Unificado</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">2° Unificado</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">3° Unificado</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">4° Unificado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">09:20</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">1° Unificado</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">2° Unificado</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">3° Unificado</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">4° Unificado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">09:40</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Nivel C</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">1° Unificado</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">2° Unificado</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Nivel C</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">3° Unificado</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">4° Unificado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">10:00</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">1° Individual</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">2° Individual</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Nivel B</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">3° Individual</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">4° Individual</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">10:20</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">1° Individual</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">2° Individual</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded">Nivel A</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">3° Individual</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">4° Individual</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-900 text-white p-2 md:p-0 md:w-24 flex items-center justify-center font-bold text-lg">10:40</div>
+                        <div class="flex-1 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-2">Cancha 1 <span class="float-right text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Nivel C</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">1° Individual</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">2° Individual</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Cancha 2 <span class="float-right text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Nivel C</span></div>
+                                <div class="flex justify-between items-center text-sm md:text-base mt-2">
+                                    <span class="font-semibold text-slate-800 text-center flex-1">3° Individual</span>
+                                    <span class="text-[10px] bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded text-slate-400 font-bold mx-2">VS</span>
+                                    <span class="font-semibold text-slate-800 text-center flex-1">4° Individual</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -1039,6 +1570,24 @@
                 agentAvatar.classList.remove('hidden');
             }
         });
+
+        // ----------------------------------------------------------------------
+        // SISTEMA DE FIXTURE
+        // ----------------------------------------------------------------------
+        function showFixture(tabId) {
+            document.querySelectorAll('.fixture-panel').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.fixture-tab').forEach(el => {
+                el.classList.remove('bg-cyan-500', 'text-white', 'shadow-md');
+                el.classList.add('bg-slate-200', 'text-slate-600');
+            });
+            
+            document.getElementById(tabId).classList.remove('hidden');
+            const activeTab = document.getElementById('tab-' + tabId);
+            activeTab.classList.remove('bg-slate-200', 'text-slate-600');
+            activeTab.classList.add('bg-cyan-500', 'text-white', 'shadow-md');
+        }
+        // Inicializar Fixture en Sábado Mañana
+        showFixture('fixture-sab-manana');
 
         // ----------------------------------------------------------------------
         // SISTEMA DE CLIMA (WIDGET COMPACTO)
